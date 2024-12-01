@@ -1,25 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import Addemployee from './components/Addemployee';
+import AddOwner from './components/Addowner';
+import Employee from './components/Employee';
+import Ownerpayment from './components/Ownerpayment';
+import Visitors from './components/Visitors';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Employee />
+      <Ownerpayment />
+      <Visitors />
+      <Addemployee />
+      <AddOwner />
     </div>
   );
 }
 
 export default App;
+
+//  npx tailwindcss -i ./src/input.css -o ./src/output.css --watch
+// nodemon
+// npm start
