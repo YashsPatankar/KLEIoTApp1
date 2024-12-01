@@ -21,6 +21,30 @@ client.connect()
     console.error('Failed to connect to MongoDB:', err);
   });
 
+  app.post("/api/login", async (req, res) => {
+    const { username, password, userType } = req.body;
+  console.log(username+" "+password+" "+userType)
+  
+    try {
+      if (!username || !password || !userType) {
+        return res.status(400).json({ message: "All fields are required" });
+      }
+  
+      const collection = db.collection("ownerandmaintainence"); // Collection name
+      const user = await collection.find({ Login: username, Password: password, Adesignation: userType }).toArray();
+    console.log(user)
+      if (user.length > 0) {
+        return res.status(200).json({ message: "Login successful", userType });
+      } else {
+        return res.status(401).json({ message: "Invalid credentials or role mismatch" });
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      return res.status(500).json({ message: "Server error. Please try again later." });
+    }
+  });
+  
+
 app.get('/api/getallemployees', async (req, res) => {
   try {
     const employees = await db.collection('employee').find().toArray();  // Fetch all employees from MongoDB
