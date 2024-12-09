@@ -9,25 +9,24 @@ import AdminDashboard from "./components/AdminDashboard";
 
 function App() {
   const [loginStatus, setLoginStatus] = useState(false); // Tracks if the user is logged in
-  const [userType, setUserType] = useState("");          // Tracks the type of user
+  const [userType, setUserType] = useState("");   
+  const [username,setUsername]=useState("")
+  // Tracks the type of user
 
   // Logout Functionality
   const handleLogout = () => {
     setLoginStatus(false);
     setUserType("");
   };
-
-  // Render the component for the logged-in user
-
-
   return (
     <div className="App">
       
       {!loginStatus ? (
         // Render the Login Page if the user is not logged in
-        <LoginPage setLoginStatus={setLoginStatus} setUserType={setUserType} />
-      ) : userType==="Admin"?<AdminDashboard  />:userType==="Chairman"?<Chairman />:userType==="Secretary"?<Secretary />:userType==="Owner"?
-       <Owner />:<Security />}
+        <LoginPage setUsername={setUsername} setLoginStatus={setLoginStatus} setUserType={setUserType} />
+      ) : userType==="Admin"?<AdminDashboard  setLoginStatus={setLoginStatus}/>:userType==="Chairman"?<Chairman setLoginStatus={setLoginStatus}/>
+       :userType==="Secretary"?<Secretary setLoginStatus={setLoginStatus}/>:userType==="Owner"?
+       <Owner username={username} setLoginStatus={setLoginStatus}/>:<Security setLoginStatus={setLoginStatus}/>}
         </div>
     
     )

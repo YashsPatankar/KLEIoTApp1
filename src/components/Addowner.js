@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import '../output.css'
 
 const AddOwner = () => {
+  const oidcount = useRef(0);
+
   const [formData, setFormData] = useState({
     oid: "",
     ofname: "",
@@ -14,8 +16,20 @@ const AddOwner = () => {
     password: "",
     famcount: "",
     flatno: "",
-    maintainence:[]
+    maintainence: []
   });
+
+  useEffect(() => {
+    axios.get("http://localhost:9000/api/getoidcount")
+      .then(response => {
+        setFormData((prevData) => ({
+          ...prevData,
+          oid: response.data[0].oidcounter + 1, // Replace response.data with the correct field if necessary
+        }));
+      })
+  }, [])
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,13 +52,13 @@ const AddOwner = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-indigo-500 via-pink-500 to-yellow-500 flex items-center justify-left px-4">
-          <div className="bg-white shadow-2xl rounded-xl p-10 max-w-2xl w-full m-4">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-t from-blue-600 to-white">
+      <div className="bg-white shadow-2xl rounded-xl p-8 sm:p-10 max-w-2xl w-full m-4">
         <h2 className="text-3xl font-extrabold text-indigo-600 mb-6 text-center">
           Add New Owner
         </h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
             <label className="block text-sm font-medium text-gray-700">
               Owner ID (OID)
             </label>
@@ -54,7 +68,7 @@ const AddOwner = () => {
               value={formData.oid}
               onChange={handleChange}
               required
-              className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className="mt-2 p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             />
           </div>
           <div>
@@ -67,7 +81,7 @@ const AddOwner = () => {
               value={formData.ofname}
               onChange={handleChange}
               required
-              className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className="mt-2 p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             />
           </div>
           <div>
@@ -80,7 +94,7 @@ const AddOwner = () => {
               value={formData.olname}
               onChange={handleChange}
               required
-              className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className="mt-2 p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             />
           </div>
           <div>
@@ -92,7 +106,7 @@ const AddOwner = () => {
               value={formData.ogender}
               onChange={handleChange}
               required
-              className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className="mt-2 p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             >
               <option value="">Select Gender</option>
               <option value="m">Male</option>
@@ -110,7 +124,7 @@ const AddOwner = () => {
               value={formData.ocellno}
               onChange={handleChange}
               required
-              className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className="mt-2 p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             />
           </div>
           <div>
@@ -123,7 +137,7 @@ const AddOwner = () => {
               value={formData.oemail}
               onChange={handleChange}
               required
-              className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className="mt-2 p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             />
           </div>
           <div>
@@ -136,7 +150,7 @@ const AddOwner = () => {
               value={formData.login}
               onChange={handleChange}
               required
-              className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className="mt-2 p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             />
           </div>
           <div>
@@ -149,7 +163,7 @@ const AddOwner = () => {
               value={formData.password}
               onChange={handleChange}
               required
-              className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className="mt-2 p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             />
           </div>
           <div>
@@ -162,7 +176,7 @@ const AddOwner = () => {
               value={formData.famcount}
               onChange={handleChange}
               required
-              className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className="mt-2 p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             />
           </div>
           <div>
@@ -175,7 +189,7 @@ const AddOwner = () => {
               value={formData.flatno}
               onChange={handleChange}
               required
-              className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className="mt-2 p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             />
           </div>
           <button
@@ -187,6 +201,7 @@ const AddOwner = () => {
         </form>
       </div>
     </div>
+
   );
 };
 

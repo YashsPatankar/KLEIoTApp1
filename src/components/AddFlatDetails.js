@@ -6,6 +6,7 @@ function AddFlatDetails() {
   const FlatNumber = useRef("");
   const FlatOwner = useRef("");
   const FlatSize = useRef("");
+  const FlatFloor = useRef("");
 
   const addFlatDetails = () => {
     const payload = {
@@ -15,8 +16,7 @@ function AddFlatDetails() {
       FlatSize: FlatSize.current.value,
     };
 
-    axios
-      .post("http://localhost:9000/api/insertFlatDetails", payload)
+    axios.post("http://localhost:9000/api/insertFlatDetails", payload)
       .then((response) => {
         alert("Flat details have been successfully inserted!");
         // Clear input fields after submission
@@ -75,6 +75,16 @@ function AddFlatDetails() {
             ref={FlatSize}
             className="w-full px-4 py-2 text-gray-900 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-lg"
             placeholder="Flat Size (sq ft)"
+            name="size"
+          />
+        </div>
+
+        <div className="relative">
+          <input
+            type="text"
+            ref={FlatFloor}
+            className="w-full px-4 py-2 text-gray-900 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-lg"
+            placeholder="Flat Floor "
             name="size"
           />
         </div>

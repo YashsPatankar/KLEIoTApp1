@@ -1,15 +1,13 @@
 import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
 
-function Chairman() {
+function Chairman({ setLoginStatus }) {
   const noticeRef = useRef("");
   const messageRef = useRef("");
   const [notices, setNotices] = useState([]);
   const [messages, setMessages] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [error, setError] = useState("");
-  const [Fixdepo,setFixdepo]=useState();
-  const [Maintainance,setMaintainance]=useState([]);
 
   // Fetch notices and messages on component mount and at intervals
   useEffect(() => {
@@ -22,7 +20,10 @@ function Chairman() {
     return () => clearInterval(interval);
   }, []);
 
-  // Fetch notices from the server
+  const logout = () => {
+    setLoginStatus(false)
+  }
+
   const fetchNotices = async () => {
     try {
       const response = await axios.get("http://localhost:9000/api/getNotices");
@@ -33,18 +34,15 @@ function Chairman() {
     }
   };
 
-  // Fetch messages from the server
   const fetchMessages = async () => {
     try {
       const response = await axios.get("http://localhost:9000/api/getMessages");
       setMessages(response.data);
     } catch (err) {
-      setError("Failed to fetch messages");
       console.error(err);
     }
   };
 
-  // Post a new notice
   const postNotice = async () => {
     const notice = noticeRef.current.value.trim();
     if (!notice) {
@@ -62,7 +60,6 @@ function Chairman() {
     }
   };
 
-  // Post a new message
   const postMessage = async () => {
     const message = messageRef.current.value.trim();
     if (!message) {
@@ -80,7 +77,6 @@ function Chairman() {
     }
   };
 
-  // Delete a specific notice
   const deleteNotice = async (id) => {
     try {
       await axios.delete(`http://localhost:9000/api/deleteNotice/${id}`);
@@ -92,7 +88,6 @@ function Chairman() {
     }
   };
 
-  // Delete a specific message
   const deleteMessage = async (id) => {
     try {
       await axios.delete(`http://localhost:9000/api/deleteMessage/${id}`);
@@ -104,7 +99,6 @@ function Chairman() {
     }
   };
 
-  // Filter notices/messages based on search query
   const filteredNotices = notices.filter((notice) =>
     (notice?.notice || "").toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -114,182 +108,92 @@ function Chairman() {
   );
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.header}>Chairman Dashboard</h1>
-      {error && <p style={styles.error}>{error}</p>}
+    <div className="relative p-6 bg-gradient-to-r from-blue-50 to-blue-100 min-h-screen">
+      <h1 className="text-3xl font-bold text-blue-800 text-center mb-6">
+        Chairman Dashboard
+      </h1>
+      <button
+        className="absolute top-6 right-6 px-4 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 transition-all shadow-md"
+        onClick={logout}
+      >
+        Logout
+      </button>
+      {error && <p className="text-red-600 text-center mb-4">{error}</p>}
 
-      {/* Input for posting notices */}
-      <div style={styles.inputGroup}>
-        <input
-          style={styles.input}
-          type="text"
-          ref={noticeRef}
-          placeholder="Enter Notice"
-          maxLength="200"
-          onInput={(e) =>
-            (e.target.nextSibling.textContent = `${e.target.value.length}/200`)
-          }
-        />
-        <span style={styles.charCount}>0/200</span>
-        <button style={styles.button} onClick={postNotice}>
-          Post Notice
-        </button>
+      {/* Post Notices */}
+      <div className="mb-6">
+        <h2 className="text-xl font-semibold text-blue-700 mb-4">Post a Notice</h2>
+        <div className="flex gap-4">
+          <input
+            type="text"
+            ref={noticeRef}
+            placeholder="Enter notice"
+            className="flex-grow p-2 border border-blue-300 rounded-md focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            onClick={postNotice}
+          >
+            Post
+          </button>
+        </div>
       </div>
 
-      {/* Input for posting messages */}
-      <div style={styles.inputGroup}>
-        <input
-          style={styles.input}
-          type="text"
-          ref={messageRef}
-          placeholder="Enter Message"
-          maxLength="200"
-          onInput={(e) =>
-            (e.target.nextSibling.textContent = `${e.target.value.length}/200`)
-          }
-        />
-        <span style={styles.charCount}>0/200</span>
-        <button style={styles.button} onClick={postMessage}>
-          Post Message
-        </button>
+      {/* Post Messages */}
+      <div className="mb-6">
+        <h2 className="text-xl font-semibold text-blue-700 mb-4">Post a Message</h2>
+        <div className="flex gap-4">
+          <input
+            type="text"
+            ref={messageRef}
+            placeholder="Enter message"
+            className="flex-grow p-2 border border-blue-300 rounded-md focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            onClick={postMessage}
+          >
+            Post
+          </button>
+        </div>
       </div>
 
-      {/* Search bar */}
-      <div style={styles.inputGroup}>
-        <input
-          style={styles.input}
-          type="text"
-          placeholder="Search notices or messages"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-      </div>
-
-      {/* Display Notices */}
-      <h2 style={styles.subHeader}>Notices</h2>
-      <div style={styles.list}>
+      {/* Notices */}
+      <h2 className="text-xl font-semibold text-blue-700 mb-4">Notices</h2>
+      <div className="space-y-4">
         {filteredNotices.length > 0 ? (
           filteredNotices.map((notice) => (
-            <div key={notice._id} style={styles.listItem}>
+            <div
+              key={notice._id}
+              className="p-4 bg-white rounded-md shadow-md flex justify-between items-center"
+            >
               <p>{notice.notice}</p>
-              <span style={styles.date}>
-                ({new Date(notice.datePosted).toLocaleString()})
-              </span>
-              <button
-                style={styles.deleteButton}
-                onClick={() => deleteNotice(notice._id)}
-              >
-                Delete
-              </button>
             </div>
           ))
         ) : (
-          <p style={styles.noData}>No notices available.</p>
+          <p className="text-gray-500">No notices available.</p>
         )}
       </div>
 
-      {/* Display Messages */}
-      <h2 style={styles.subHeader}>Messages</h2>
-      <div style={styles.list}>
+      {/* Messages */}
+      <h2 className="text-xl font-semibold text-blue-700 mt-8 mb-4">Messages</h2>
+      <div className="space-y-4">
         {filteredMessages.length > 0 ? (
           filteredMessages.map((message) => (
-            <div key={message._id} style={styles.listItem}>
+            <div
+              key={message._id}
+              className="p-4 bg-white rounded-md shadow-md flex justify-between items-center"
+            >
               <p>{message.message}</p>
-              <span style={styles.date}>
-                ({new Date(message.datePosted).toLocaleString()})
-              </span>
-              <button
-                style={styles.deleteButton}
-                onClick={() => deleteMessage(message._id)}
-              >
-                Delete
-              </button>
             </div>
           ))
         ) : (
-          <p style={styles.noData}>No messages available.</p>
+          <p className="text-gray-500">No messages available.</p>
         )}
       </div>
     </div>
+
   );
 }
-
-const styles = {
-  container: {
-    textAlign: "center",
-    padding: "20px",
-    fontFamily: "Arial, sans-serif",
-    backgroundColor: "#f9f9f9",
-    minHeight: "100vh",
-  },
-  header: {
-    color: "#333",
-    marginBottom: "20px",
-  },
-  inputGroup: {
-    margin: "20px 0",
-  },
-  input: {
-    padding: "10px",
-    width: "60%",
-    marginRight: "10px",
-    border: "1px solid #ccc",
-    borderRadius: "5px",
-  },
-  charCount: {
-    fontSize: "12px",
-    color: "#888",
-    marginLeft: "10px",
-  },
-  button: {
-    padding: "10px 20px",
-    backgroundColor: "#007bff",
-    color: "#fff",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-  },
-  deleteButton: {
-    marginLeft: "10px",
-    padding: "5px 10px",
-    backgroundColor: "#dc3545",
-    color: "#fff",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-  },
-  subHeader: {
-    marginTop: "30px",
-    color: "#555",
-  },
-  list: {
-    marginTop: "10px",
-    padding: "10px",
-    backgroundColor: "#fff",
-    border: "1px solid #ddd",
-    borderRadius: "5px",
-  },
-  listItem: {
-    marginBottom: "10px",
-    padding: "10px",
-    borderBottom: "1px solid #eee",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  date: {
-    fontSize: "12px",
-    color: "#888",
-  },
-  noData: {
-    color: "#999",
-    fontStyle: "italic",
-  },
-  error: {
-    color: "red",
-    fontSize: "14px",
-    marginBottom: "20px",
-  },
-};
 
 export default Chairman;

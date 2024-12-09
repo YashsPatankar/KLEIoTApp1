@@ -49,6 +49,7 @@ function Employee() {
             style={{
                 fontFamily: 'Arial, sans-serif',
                 backgroundColor: '#f4f7fc',
+                width: '1400px',
                 padding: '20px',
                 borderRadius: '8px',
                 display: 'flex',
@@ -56,8 +57,10 @@ function Employee() {
                 gap: '20px',
                 boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
             }}>
-            <div style={{ flex: 1 }}>
-                <h2 style={{ color: '#4A90E2', textAlign: 'center', marginBottom: '20px' }}>Employee Details</h2>
+            <div style={{ flex: 2 }}>
+                <h2 style={{ color: '#4A90E2', textAlign: 'center', marginBottom: '20px', fontSize: '24px' }}>
+                    Employee Details
+                </h2>
                 <ul
                     style={{
                         listStyle: 'none',
@@ -95,6 +98,7 @@ function Employee() {
                                     display: 'flex',
                                     justifyContent: 'space-between',
                                     fontSize: '14px',
+                                    color: 'blue',
                                     marginBottom: '10px',
                                 }}>
                                 <li style={{ width: '90px' }}>{employee.empid}</li>
@@ -145,6 +149,7 @@ function Employee() {
                                         display: 'flex',
                                         justifyContent: 'space-between',
                                         padding: '8px',
+                                        color: 'black',
                                         borderBottom: '1px solid #e0e0e0',
                                         fontSize: '14px',
                                     }}>
@@ -159,8 +164,10 @@ function Employee() {
                     ))}
                 </div>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', width: '430px' }}>
-                <h2 style={{ color: '#4A90E2', marginBottom: '20px' }}>Enter Salary Details</h2>
+            <div style={{ display: 'flex 3', flexDirection: 'column', width: '430px' }}>
+            <h2 style={{ color: '#4A90E2', textAlign: 'center', marginBottom: '20px', fontSize: '24px' }}>
+  Enter Salary Details
+</h2>
                 <div
                     style={{
                         backgroundColor: '#DFFFD6',
@@ -219,7 +226,7 @@ function Employee() {
                                 padding: '10px',
                                 borderRadius: '5px',
                                 border: '1px solid #ccc',
-                            }}/>
+                            }} />
                         <select
                             ref={sstatus}
                             className="form-select"
@@ -241,7 +248,7 @@ function Employee() {
                                 padding: '10px',
                                 borderRadius: '5px',
                                 border: '1px solid #ccc',
-                            }}/>
+                            }} />
                     </div>
                 </div>
             </div>
