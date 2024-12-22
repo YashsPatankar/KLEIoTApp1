@@ -12,15 +12,17 @@ const AddOwner = () => {
     ogender: "",
     ocellno: "",
     oemail: "",
-    login: "",
-    password: "",
+    Login: "",
+    Password: "",
+    Adesignation:"Owner",
     famcount: "",
     flatno: "",
-    maintainence: []
+    maintainence: [],
+    Messages:[]
   });
 
   useEffect(() => {
-    axios.get("http://localhost:9000/api/getoidcount")
+    axios.get("http://localhost:9000/api/admin/getoidcount")
       .then(response => {
         setFormData((prevData) => ({
           ...prevData,
@@ -28,9 +30,6 @@ const AddOwner = () => {
         }));
       })
   }, [])
-
-
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -42,7 +41,7 @@ const AddOwner = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:9000/api/addowner", formData);
+      const response = await axios.post("http://localhost:9000/api/admin/addowner", formData);
       alert("Owner added successfully!");
       console.log(response.data);
     } catch (error) {
@@ -146,8 +145,8 @@ const AddOwner = () => {
             </label>
             <input
               type="text"
-              name="login"
-              value={formData.login}
+              name="Login"
+              value={formData.Login}
               onChange={handleChange}
               required
               className="mt-2 p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
@@ -159,8 +158,8 @@ const AddOwner = () => {
             </label>
             <input
               type="password"
-              name="password"
-              value={formData.password}
+              name="Password"
+              value={formData.Password}
               onChange={handleChange}
               required
               className="mt-2 p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"

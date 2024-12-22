@@ -12,7 +12,6 @@ function App() {
   const [userType, setUserType] = useState("");   
   const [username,setUsername]=useState("")
   // Tracks the type of user
-
   // Logout Functionality
   const handleLogout = () => {
     setLoginStatus(false);

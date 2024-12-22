@@ -11,7 +11,7 @@ function Ownerpayment() {
     const modeofpayment = useRef("")
     const paymentdescription = useRef("")
     useEffect(() => {
-        axios.get("http://localhost:9000/api/getallowners")
+        axios.get("http://localhost:9000/api/owner/getallowners")
             .then(response => {
                 setOwners(response.data)
             })
@@ -37,7 +37,7 @@ function Ownerpayment() {
                 modeofpayment: modeofpayment1,
                 paymentdescription: paymentdescription1
             }
-            axios.post("http://localhost:9000/api/generatemaintainencedetails", { payload1, oid })
+            axios.post("http://localhost:9000/api/owner/generatemaintainencedetails", { payload1, oid })
                 .then(response => {
                     alert("Maintainence details saved!!")
                 })

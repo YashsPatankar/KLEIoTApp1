@@ -12,7 +12,7 @@ function Visitors({ setLoginStatus }) {
     const outtime = useRef("");
 
     useEffect(() => {
-        axios.get("http://localhost:9000/api/getallvisitors")
+        axios.get("http://localhost:9000/api/security/getallvisitors")
             .then(response => {
                 setVisitors(response.data);
             })
@@ -44,7 +44,7 @@ function Visitors({ setLoginStatus }) {
             outtime: outtime1
         };
 
-        axios.post("http://localhost:9000/api/addvisitors", payload)
+        axios.post("http://localhost:9000/api/security/addvisitors", payload)
             .then(response => {
                 alert("Visitor added successfully!");
             })
@@ -54,7 +54,7 @@ function Visitors({ setLoginStatus }) {
     };
 
     return (
-        <div className="relative flex flex-col lg:flex-row justify-center items-center min-h-screen bg-gradient-to-b from-blue-300 to-blue-400 text-white p-6">
+        <div className="relative flex flex-col lg:flex-row justify-center items-center min-h-screen bg-gradient-to-b from-blue-100 to-blue-600 text-white p-6">
     {/* Heading */}
     <h1 className="absolute top-4 left-1/2 transform -translate-x-1/2 text-4xl font-bold text-blue-900">
         Security Dashboard

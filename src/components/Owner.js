@@ -1,26 +1,27 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import PlaceOrder from './PlaceOrder';
 
-function Owner({ username ,setLoginStatus}) {
+function Owner({ username, setLoginStatus }) {
   const [owners, setOwners] = useState([]); // Fixed variable name
 
   useEffect(() => {
-    axios.get("http://localhost:9000/api/getmaintainence/" + username)
+    axios.get("http://localhost:9000/api/owner/getmaintainence/" + username)
       .then(response => {
         setOwners(response.data);
       })
       .catch(error => {
         console.error("Error fetching data:", error);
       });
-  }, [owners]); 
+  }, []);
 
-  const logout=()=>{
+  const logout = () => {
     setLoginStatus(false)
   }
 
   const updatestatus = () => {
 
-    axios.post("http://localhost:9000/api/updatepaymentstatus", { username: username })
+    axios.post("http://localhost:9000/api/owner/updatepaymentstatus", { username: username })
       .then(response => {
         alert("Payment status updated!!!")
       })
@@ -51,48 +52,53 @@ function Owner({ username ,setLoginStatus}) {
                         Payment #{idx + 1}
                       </h4>
                       <div className="flex flex-wrap justify-between items-start text-center">
-                        <div className="flex flex-col w-1/6">
+                        <div className="flex flex-col w-1/7">
                           <span className="font-medium text-gray-700">
                             Payment Date
                           </span>
                           <span className="text-gray-800">{m.paymentdate}</span>
                         </div>
-                        <div className="flex flex-col w-1/6">
+                        <div className="flex flex-col w-1/7">
                           <span className="font-medium text-gray-700">Amount</span>
                           <span className="text-gray-800">{m.amount}</span>
                         </div>
-                        <div className="flex flex-col w-1/6">
+                        <div className="flex flex-col w-1/7">
                           <span className="font-medium text-gray-700">Year</span>
                           <span className="text-gray-800">{m.year}</span>
                         </div>
-                        <div className="flex flex-col w-1/6">
+                        <div className="flex flex-col w-1/7">
                           <span className="font-medium text-gray-700">
                             Mode of Payment
                           </span>
                           <span className="text-gray-800">{m.modeofpayment}</span>
                         </div>
-                        <div className="flex flex-col w-1/6">
+                        <div className="flex flex-col w-1/7">
                           <span className="font-medium text-gray-700">Status</span>
                           <span
                             className={`px-2 py-1 rounded text-sm ${m.estatus === "Paid"
-                                ? "bg-green-100 text-green-700"
-                                : "bg-red-100 text-red-700"
+                              ? "bg-green-100 text-green-700"
+                              : "bg-red-100 text-red-700"
                               }`}
                           >
                             {m.estatus}
                           </span>
                         </div>
-                        <div className="flex flex-col w-1/6">
+                        <div className="flex flex-col w-1/7">
                           <span className="font-medium text-gray-700">
                             Description
                           </span>
                           <span className="text-gray-800">{m.paymentdescription}</span>
                         </div>
+                        <button
+                          onClick={updatestatus}
+                          className="mt-4 px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                        >
+                          Pay Now
+                        </button>
                       </div>
                       <div className="mt-4 text-center">
-                        <button onClick={updatestatus} className="px-6 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700">
-                          Make Payment
-                        </button>
+                        <PlaceOrder amount={m.amount} />
+                        
                       </div>
                     </div>
                   ))

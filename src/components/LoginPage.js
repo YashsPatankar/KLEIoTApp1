@@ -23,7 +23,7 @@ const LoginPage = ({ setLoginStatus, setUserType,setUsername }) => {
     setUsername(formData.username)
     try {
       // Make API request to login
-      const response = await axios.post("http://localhost:9000/api/login", formData);
+      const response = await axios.post("http://localhost:9000/api/login/authenticate", formData);
 
       if (response.status === 200) {
         // Handle successful login

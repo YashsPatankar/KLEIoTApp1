@@ -11,7 +11,7 @@ function Employee() {
     const sstatus = useRef("")
     const saldate = useRef("")
     useEffect(() => {
-        axios.get("http://localhost:9000/api/getallemployees")
+        axios.get("http://localhost:9000/api/secretary/getallemployees")
             .then(response => {
                 setEmployee(response.data)
             })
@@ -35,7 +35,7 @@ function Employee() {
                 sstatus: sstatus1,
                 saldate: saldate1
             }
-            axios.post("http://localhost:9000/api/generatesalarydetails", { payload, empid })
+            axios.post("http://localhost:9000/api/secretary/generatesalarydetails", { payload, empid })
                 .then(response => {
                     alert("Changes added successfully!!")
                 })
@@ -165,9 +165,9 @@ function Employee() {
                 </div>
             </div>
             <div style={{ display: 'flex 3', flexDirection: 'column', width: '430px' }}>
-            <h2 style={{ color: '#4A90E2', textAlign: 'center', marginBottom: '20px', fontSize: '24px' }}>
-  Enter Salary Details
-</h2>
+                <h2 style={{ color: '#4A90E2', textAlign: 'center', marginBottom: '20px', fontSize: '24px' }}>
+                    Enter Salary Details
+                </h2>
                 <div
                     style={{
                         backgroundColor: '#DFFFD6',

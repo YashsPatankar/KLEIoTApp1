@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import axios from "axios";
 import Employee from "./Employee";
-import MakeEmpSalary from "./MakeEmpSalary";
 
 function AddExpense() {
   const [expense, setExpense] = useState({
@@ -22,7 +21,7 @@ function AddExpense() {
   const handleAddExpense = (event) => {
     event.preventDefault();
     axios
-      .post("http://localhost:9000/api/addExpense", expense)
+      .post("http://localhost:9000/api/secretary/addExpense", expense)
       .then(() => {
         alert("Expense added successfully!");
         setExpense({
@@ -91,7 +90,7 @@ function SendReminder() {
   const handleSendReminder = (event) => {
     event.preventDefault();
     axios
-      .post("http://localhost:9000/api/sendReminder", reminder)
+      .post("http://localhost:9000/api/secretary/sendReminder", reminder)
       .then(() => {
         alert("Reminder sent successfully!");
         setReminder({ oid: "", reminder: "" }); // Clear inputs
@@ -194,9 +193,7 @@ function Secretary({ setLoginStatus }) {
           <Routes>
             <Route path="/add-expense" element={<AddExpense />} />
             <Route path="/send-reminder" element={<SendReminder />} />
-            <Route
-              path="/make-salary"
-              element={
+            <Route path="/make-salary" element={
                 <div className="flex flex-row gap-12">
                   <div className="flex-1 max-w-lg">
                     <Employee />
