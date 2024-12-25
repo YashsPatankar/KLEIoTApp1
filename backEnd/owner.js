@@ -50,4 +50,15 @@ router.get('/getmaintainence/:username', async (req, res) => {
   }
 });
 
+router.post('/lodgecomplaint',async(req,res)=>{
+  const payload=req.body
+  console.log(payload)
+  try {
+    const result=await db.collection('complaints').insertOne(payload)
+  res.send("added complaint!!!")
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 module.exports = router;

@@ -32,74 +32,78 @@ function AddFlatDetails() {
   };
 
   return (
-    <div className="max-w-lg mx-auto bg-gradient-to-br from-blue-500 via-purple-500 to-indigo-600 p-6 rounded-xl shadow-lg">
-      <h2 className="text-white text-xl font-bold mb-4 text-center">Add Flat Details</h2>
-      <div className="space-y-4">
-        {/* Flat Number Input */}
-        <div className="relative">
-          <input
-            type="text"
-            ref={FlatNumber}
-            className="w-full px-4 py-2 text-gray-900 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-lg"
-            placeholder="Flat Number"
-            name="flatNumber"
-          />
-        </div>
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-t from-blue-600 to-white">
+      <div className="bg-white shadow-2xl rounded-xl p-8 sm:p-10 max-w-2xl w-full m-4">
+        <h2 className="text-black text-2xl font-extrabold mb-6 text-center tracking-wide">Add Flat Details</h2>
+        <div className="space-y-6">
+          {/* Flat Number Input */}
+          <div className="relative">
+            <input
+              type="text"
+              ref={FlatNumber}
+              className="w-full px-5 py-3 text-gray-800 rounded-lg bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
+              placeholder="Flat Number"
+              name="flatNumber"
+            />
+          </div>
 
-        {/* Owner Name Input */}
-        <div className="relative">
-          <input
-            type="text"
-            ref={FlatOwner}
-            className="w-full px-4 py-2 text-gray-900 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-lg"
-            placeholder="Owner Name"
-            name="ownerName"
-          />
-        </div>
+          {/* Owner Name Input */}
+          <div className="relative">
+            <input
+              type="text"
+              ref={FlatOwner}
+              className="w-full px-5 py-3 text-gray-800 rounded-lg bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
+              placeholder="Owner Name"
+              name="ownerName"
+            />
+          </div>
 
-        {/* Owner ID Input */}
-        <div className="relative">
-          <input
-            type="text"
-            ref={Oid}
-            className="w-full px-4 py-2 text-gray-900 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-lg"
-            placeholder="Owner ID"
-            name="ownerId"
-          />
-        </div>
+          {/* Owner ID Input */}
+          <div className="relative">
+            <input
+              type="text"
+              ref={Oid}
+              className="w-full px-5 py-3 text-gray-800 rounded-lg bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
+              placeholder="Owner ID"
+              name="ownerId"
+            />
+          </div>
 
-        {/* Flat Size Input */}
-        <div className="relative">
-          <input
-            type="text"
-            ref={FlatSize}
-            className="w-full px-4 py-2 text-gray-900 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-lg"
-            placeholder="Flat Size (sq ft)"
-            name="size"
-          />
-        </div>
+          {/* Flat Size Input */}
+          <div className="relative">
+            <input
+              type="text"
+              ref={FlatSize}
+              className="w-full px-5 py-3 text-gray-800 rounded-lg bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
+              placeholder="Flat Size (sq ft)"
+              name="size"
+            />
+          </div>
 
-        <div className="relative">
-          <input
-            type="text"
-            ref={FlatFloor}
-            className="w-full px-4 py-2 text-gray-900 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-lg"
-            placeholder="Flat Floor "
-            name="size"
-          />
-        </div>
+          {/* Flat Floor Input */}
+          <div className="relative">
+            <input
+              type="text"
+              ref={FlatFloor}
+              className="w-full px-5 py-3 text-gray-800 rounded-lg bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
+              placeholder="Flat Floor"
+              name="floor"
+            />
+          </div>
 
-        {/* Submit Button */}
-        <div className="text-center">
-          <button
-            className="w-full px-4 py-2 font-semibold text-white bg-gradient-to-r from-green-400 to-teal-500 rounded-md shadow-lg hover:from-green-500 hover:to-teal-600 focus:outline-none focus:ring-4 focus:ring-teal-300"
-            onClick={addFlatDetails}
-          >
-            Add Flat
-          </button>
+          {/* Submit Button */}
+          <div className="text-center">
+            <button
+              className="w-full px-5 py-3 font-bold text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg shadow-md hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-transform transform hover:scale-105"
+              onClick={addFlatDetails}
+            >
+              Add Flat
+            </button>
+          </div>
         </div>
       </div>
     </div>
+
   );
 }
 

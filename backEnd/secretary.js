@@ -25,6 +25,41 @@ router.get('/getallemployees', async (req, res) => {
   }
 });
 
+router.get('/paymentdues', async (req, res) => {
+  try {
+    console.log("Fetching payment dues...");
+    
+    // Get the collection
+    const collection = db.collection('ownerandmaintainence');
+    
+    // Define the projection (to fetch only the 'maintainence' field and exclude '_id')
+    const projection = { ofname:1,olname:1,maintainence: 1, _id: 0 };
+
+    // Fetch the data from MongoDB with the correct projection
+    const result = await collection.find({}, { projection }).toArray();
+
+    // Log the result for debugging purposes
+    console.log(result);
+
+    // Send the response with the result
+    res.send(result);
+  } catch (error) {
+    // Handle any errors
+    console.error('Error fetching data:', error);
+    res.status(500).json({ message: 'Error fetching payment dues', error });
+  }
+});
+
+router.get('/getlodgedcomplaints', async (req, res) => {
+  try {
+    const complaints = await db.collection('complaints').find().sort(1).limit(5).toArray();  // Fetch all employees from MongoDB
+    console.log(complaints)
+    res.send(complaints);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching data', error });
+  }
+});
+
 router.post('/generatesalarydetails', async (req, res) => {
   const {payload,empid}=req.body
   console.log(payload)

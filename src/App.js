@@ -8,29 +8,25 @@ import Security from "./components/Security";
 import AdminDashboard from "./components/AdminDashboard";
 
 function App() {
-  const [loginStatus, setLoginStatus] = useState(false); // Tracks if the user is logged in
-  const [userType, setUserType] = useState("");   
-  const [username,setUsername]=useState("")
-  // Tracks the type of user
-  // Logout Functionality
+  const [loginStatus, setLoginStatus] = useState(false);
+  const [userType, setUserType] = useState("");
+  const [username, setUsername] = useState("")
   const handleLogout = () => {
     setLoginStatus(false);
     setUserType("");
   };
   return (
     <div className="App">
-      
+
       {!loginStatus ? (
-        // Render the Login Page if the user is not logged in
         <LoginPage setUsername={setUsername} setLoginStatus={setLoginStatus} setUserType={setUserType} />
-      ) : userType==="Admin"?<AdminDashboard  setLoginStatus={setLoginStatus}/>:userType==="Chairman"?<Chairman setLoginStatus={setLoginStatus}/>
-       :userType==="Secretary"?<Secretary setLoginStatus={setLoginStatus}/>:userType==="Owner"?
-       <Owner username={username} setLoginStatus={setLoginStatus}/>:<Security setLoginStatus={setLoginStatus}/>}
-        </div>
-    
-    )
-  }
-// Inline styles for the Logout button and header
+      ) : userType === "Admin" ? <AdminDashboard setLoginStatus={setLoginStatus} /> : userType === "Chairman" ? <Chairman setLoginStatus={setLoginStatus} />
+        : userType === "Secretary" ? <Secretary setLoginStatus={setLoginStatus} /> : userType === "Owner" ?
+          <Owner username={username} setLoginStatus={setLoginStatus} /> : <Security setLoginStatus={setLoginStatus} />}
+    </div>
+
+  )
+}
 const styles = {
   header: {
     display: "flex",

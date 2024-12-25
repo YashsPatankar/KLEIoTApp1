@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import axios from "axios";
 import Employee from "./Employee";
+import Paymentdue from "./Paymentdue";
+import Raisedemand from "./Raisedemand";
+import Viewcomplaints from "./Viewcomplaints";
 
 function AddExpense() {
   const [expense, setExpense] = useState({
@@ -185,6 +188,30 @@ function Secretary({ setLoginStatus }) {
                 Make Salary
               </Link>
             </li>
+            <li>
+              <Link
+                 to="/raise-demand"
+                className="px-4 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 transition-all shadow-md"
+              >
+                Raise Demand
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/view-paymentdues"
+                className="px-4 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 transition-all shadow-md"
+              >
+                View Payment Dues
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/view-lodgedcomplaints"
+                className="px-4 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 transition-all shadow-md"
+              >
+                View complaints
+              </Link>
+            </li>
           </ul>
         </nav>
 
@@ -193,14 +220,10 @@ function Secretary({ setLoginStatus }) {
           <Routes>
             <Route path="/add-expense" element={<AddExpense />} />
             <Route path="/send-reminder" element={<SendReminder />} />
-            <Route path="/make-salary" element={
-                <div className="flex flex-row gap-12">
-                  <div className="flex-1 max-w-lg">
-                    <Employee />
-                  </div>
-                </div>
-              }
-            />
+            <Route path="/raise-demand" element={<Raisedemand />} />
+            <Route path="/view-paymentdues" element={<Paymentdue />} />
+            <Route path="/view-lodgedcomplaints" element={<Viewcomplaints  />} />
+            <Route path="/make-salary" element={<div className="flex flex-row gap-12"><div className="flex-1 max-w-lg"><Employee /></div></div>} />
           </Routes>
         </div>
       </div>

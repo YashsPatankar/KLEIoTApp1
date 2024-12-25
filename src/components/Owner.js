@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import PlaceOrder from './PlaceOrder';
+import Raisecomplaint from './Raisecomplaint';
 
 function Owner({ username, setLoginStatus }) {
   const [owners, setOwners] = useState([]); // Fixed variable name
@@ -31,6 +32,12 @@ function Owner({ username, setLoginStatus }) {
   }
   return (
     <div className="bg-gradient-to-br from-blue-50 to-blue-200 p-8 rounded-lg shadow-lg">
+      <button 
+        className="absolute top-4 right-4 px-4 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 transition-all shadow-md" 
+        onClick={logout}
+    >
+        Logout
+    </button>
       <h2 className="text-3xl font-bold text-blue-800 mb-6 text-center">
         Maintenance Details
       </h2>
@@ -96,10 +103,10 @@ function Owner({ username, setLoginStatus }) {
                           Pay Now
                         </button>
                       </div>
-                      <div className="mt-4 text-center">
+                      {/* <div className="mt-4 text-center">
                         <PlaceOrder amount={m.amount} />
                         
-                      </div>
+                      </div> */}
                     </div>
                   ))
                 ) : (
@@ -112,8 +119,7 @@ function Owner({ username, setLoginStatus }) {
           <p className="text-gray-500 text-center">No owner data available.</p>
         )}
       </div>
-      <button className="px-4 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 transition-all shadow-md" onClick={logout}>Logout</button>
-
+      <Raisecomplaint oid={owners[0].oid}/>
     </div>
 
   );
