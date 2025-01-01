@@ -5,13 +5,25 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 function Employee() {
     const [employees, setEmployee] = useState([])
+    const [financialyear,setFinancialyear]=useState()
     const month = useRef("")
     const year = useRef("")
     const amount = useRef("")
     const sstatus = useRef("")
     const saldate = useRef("")
+
+    useEffect(()=>{
+        axios.get("http://localhost:9000/api/secretary/getfinancialyear")
+        .then(response=>{
+            setFinancialyear(response.data)
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+    },[financialyear])
+
     useEffect(() => {
-        axios.get("http://localhost:9000/api/secretary/getallemployees")
+        axios.get("http://localhost:9000/api/secretary/getallemployees/"+financialyear)
             .then(response => {
                 setEmployee(response.data)
             })

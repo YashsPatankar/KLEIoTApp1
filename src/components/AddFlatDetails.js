@@ -32,9 +32,9 @@ function AddFlatDetails() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-t from-blue-600 to-white">
+    <div className="flex justify-center items-center min-h-screen ">
       <div className="bg-white shadow-2xl rounded-xl p-8 sm:p-10 max-w-2xl w-full m-4">
-        <h2 className="text-black text-2xl font-extrabold mb-6 text-center tracking-wide">Add Flat Details</h2>
+      <h2 className="text-black text-2xl font-extrabold mb-6 text-center tracking-wide">Add Flat Details</h2>
         <div className="space-y-6">
           {/* Flat Number Input */}
           <div className="relative">
@@ -94,7 +94,7 @@ function AddFlatDetails() {
           {/* Submit Button */}
           <div className="text-center">
             <button
-              className="w-full px-5 py-3 font-bold text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg shadow-md hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-transform transform hover:scale-105"
+              className="w-full bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 text-white font-bold py-3 px-4 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
               onClick={addFlatDetails}
             >
               Add Flat

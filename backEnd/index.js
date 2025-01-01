@@ -90,6 +90,133 @@ app.post('/api/capture-payment', async (req, res) => {
       res.status(500).json({ success: false, error: 'Failed to capture payment.' });
   }
 });
+app.get("/api/getAptname", async (req, res) => {
+  try {
+    const collection = db.collection("Apartment");
+    const Apartment = await collection.find({}).toArray();
+    console.log(Apartment)
+    return res.status(200).send(Apartment);
+  } catch (error) {
+    console.error("Error ", error);
+    return res.status(500).json({ message: "Server error. Please try again later." });
+  }
+});
+app.get("/api/getinfo", async (req, res) => {
+  try {
+    const collection = db.collection("Apartment");
+    const info = await collection.find({}).toArray();
+    return res.status(200).json(info);
+  } catch (error) {
+    console.error("Error fetching apartment info:", error);
+    return res.status(500).json({ message: "Server error. Please try again later." });
+  }
+});
+app.post("/api/Raisedemand", async (req, res) => {
+  const { paymentdescription, year, paymentdate, amount } = req.body;
+  const Owner=db.collection("ownerandmaintainence")
+  try {
+    // Check for duplicate year in the `maintenance` field for any owner
+    const duplicateCheck = await Owner.findOne({
+      "maintenence.year": year,
+    });
+
+    if (duplicateCheck) {
+      return res
+        .status(400)
+        .json({ message: "Duplicate year detected in Maintenance field." });
+    }
+    const newMaintenance = { paymentdescription, year, paymentdate, amount };
+    const result = await Owner.updateMany(
+      {}, // Empty filter to target all documents
+      { $push: { maintainence: newMaintenance } }
+    );
+
+    res.status(200).json({
+      message: "Demands submitted successfully.",
+      updatedCount: result.modifiedCount,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "An unexpected error occurred." });
+  }
+});
+app.get("/api/getDues/:year", async (req, res) => {
+  const year = req.params.year;  // Keep the year as a string, no need to parseInt
+  console.log("Requested year:", year);  // Log the requested year
+  try {
+    const collection = db.collection("ownerandmaintainence");
+
+    // Find documents where the 'Maintainance' array contains an element matching the year (as a string)
+    const Dues = await collection
+      .find(
+        {
+          "Maintainence.year": year  // Match the 'year' field as a string
+        },
+        {
+          projection: { ofname: 1, olname: 1, Maintainence: 1, _id: 0 }  // Return Afname, Alname, and Maintainance fields
+        }
+      )
+      .toArray();
+    
+    console.log("Dues found:", Dues);  // Log the returned data to verify if the query is working
+    return res.status(200).json(Dues);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return res.status(500).json({ message: "Server error. Please try again later." });
+  }
+});
+app.get("/api/getMaintainance/:oid", async (req, res) => {
+  const oid = parseInt(req.params.oid);
+  
+  try {
+    // Fetching the document for the given oid
+    const result = await db.collection("ownerandmaintainence")
+      .find({ oid: oid }, { projection: { oid: 1, maintainence: 1, _id: 0 } })
+      .toArray();
+
+    if (result.length > 0) {
+      // Assuming the `maintenance` field is an array of objects, extract the maintenance data
+      const maintenanceData = result[0].maintainence || [];
+
+      // Send the maintenance data as an array of objects
+      return res.json(maintenanceData);
+    } else {
+      return res.status(404).json({ message: "No data found for the given OID." });
+    }
+  } catch (error) {
+    console.error("Error fetching maintenance data:", error);
+    return res.status(500).json({ message: "Server error. Please try again later." });
+  }
+});
+
+
+
+app.post("/api/getMaintainance", async (req, res) => {
+  const { oid,year, estatus } = req.body;  // Assuming the body contains the year and the new status
+
+  try {
+    const collection = db.collection("ownerandmaintainence");
+
+    // Update the Maintainance array for the specific owner (oid) and year
+    const result = await collection.updateOne(
+      { oid: oid, "maintainence.year": year }, // Find the Owner with the specified OID and year in Maintainance array
+      {
+        $set: {
+          "maintainance.$.estatus": estatus // Update the status of the matching Maintainance entry
+        }
+      }
+    );
+
+    if (result.modifiedCount > 0) {
+      return res.json({ message: "Maintenance status updated successfully." });
+    } else {
+      return res.status(404).json({ message: "No maintenance entry found with the given year." });
+    }
+  } catch (error) {
+    console.error("Error updating maintenance data:", error);
+    return res.status(500).json({ message: "Server error. Please try again later." });
+  }
+});
 // app.post("/api/login", async (req, res) => {
 //     const { username, password, userType } = req.body;
 //   console.log(username+" "+password+" "+userType)

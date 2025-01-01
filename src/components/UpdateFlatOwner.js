@@ -25,39 +25,41 @@ function UpdateFlatOwner() {
   };
 
   return (
-    <div className="max-w-lg mx-auto bg-gradient-to-br from-yellow-400 to-yellow-600 p-6 rounded-xl shadow-lg">
-      <h2 className="text-white text-xl font-bold mb-4 text-center">
-        Update Flat Owner
-      </h2>
-      <div className="space-y-4">
-        {/* Flat ID Input */}
-        <div className="relative">
-          <input
-            type="text"
-            ref={FlatId}
-            className="w-full px-4 py-2 text-gray-900 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-yellow-500 shadow-lg"
-            placeholder="Flat ID"
-          />
-        </div>
+    <div className="flex justify-center items-center min-h-screen ">
+      <div className="bg-white shadow-2xl rounded-xl p-8 sm:p-10 max-w-2xl w-full m-4">
+        <h2 className="text-black text-xl font-bold mb-4 text-center">
+          Update Flat Owner
+        </h2>
+        <div className="space-y-4">
+          {/* Flat ID Input */}
+          <div className="relative">
+            <input
+              type="text"
+              ref={FlatId}
+              className="w-full px-4 py-2 text-gray-900 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-yellow-500 shadow-lg"
+              placeholder="Flat ID"
+            />
+          </div>
 
-        {/* New Owner Input */}
-        <div className="relative">
-          <input
-            type="text"
-            ref={NewOwner}
-            className="w-full px-4 py-2 text-gray-900 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-yellow-500 shadow-lg"
-            placeholder="New Owner Name"
-          />
-        </div>
+          {/* New Owner Input */}
+          <div className="relative">
+            <input
+              type="text"
+              ref={NewOwner}
+              className="w-full px-4 py-2 text-gray-900 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-yellow-500 shadow-lg"
+              placeholder="New Owner Name"
+            />
+          </div>
 
-        {/* Submit Button */}
-        <div className="text-center">
-          <button
-            className="w-full px-4 py-2 font-semibold text-white bg-gradient-to-r from-green-400 to-green-600 rounded-md shadow-lg hover:from-green-500 hover:to-green-700 focus:outline-none focus:ring-4 focus:ring-green-300"
-            onClick={updateFlatOwner}
-          >
-            Update Owner
-          </button>
+          {/* Submit Button */}
+          <div className="text-center">
+            <button
+              className="w-full px-4 py-2 font-semibold text-white bg-gradient-to-r from-green-400 to-green-600 rounded-md shadow-lg hover:from-green-500 hover:to-green-700 focus:outline-none focus:ring-4 focus:ring-green-300"
+              onClick={updateFlatOwner}
+            >
+              Update Owner
+            </button>
+          </div>
         </div>
       </div>
     </div>

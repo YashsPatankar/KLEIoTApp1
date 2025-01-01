@@ -13,7 +13,7 @@ router.post('/postmessage',async(req,res)=>{
     } catch (error) {
       console.log(error)
     }
-  })
+})
 
 router.post('/postnotice',async(req,res)=>{
     const payload1=req.body
@@ -24,7 +24,7 @@ router.post('/postnotice',async(req,res)=>{
     } catch (error) {
       console.log(error)
     }
-  })
+})
 
 router.get('/getNotices', async (req, res) => {
   try {

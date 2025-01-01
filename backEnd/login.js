@@ -20,7 +20,7 @@ router.post("/authenticate", async (req, res) => {
        user = await collection.find({ Login: username, Password: password, Adesignation: userType }).toArray();
     console.log(user)
       if (user.length > 0) {
-        return res.status(200).json({ message: "Login successful", userType });
+        return res.status(200).json({ message: "Login successful", userType,ofname:user[0].ofname,olname:user[0].olname,oid:user[0].oid });
       } else {
         return res.status(401).json({ message: "Invalid credentials or role mismatch" });
       }

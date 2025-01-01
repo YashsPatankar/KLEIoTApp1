@@ -14,13 +14,13 @@ function Paymentdue() {
   }, [])
   return (
     <div>
-      {paymentdues && paymentdues.length > 0 ? (paymentdues.map((owner, index) => (
+      {(paymentdues && paymentdues.length > 0) ? (paymentdues.map((owner, index) => (
         <div key={index} className="bg-white p-6 rounded-lg shadow-md">
           <h3 className="text-xl font-semibold text-blue-700 mb-4">
-            Maintenance of :- {owner.ofname} {owner.olname}
+           Maintenance of :- {owner.ofname} {owner.olname}
           </h3>
           <div className="flex flex-wrap gap-6">
-            {owner.maintainence && owner.maintainence.length > 0 ? (
+            {owner.maintainence && owner.maintainence.length >0? (
               owner.maintainence.map((m, idx) => (
                 <div
                   key={idx}
@@ -70,9 +70,7 @@ function Paymentdue() {
                   </div>
                 </div>
               ))
-            ) : (
-              <p className="text-gray-500">No maintenance records available.</p>
-            )}
+            ) :   ""}
           </div>
         </div>
       ))

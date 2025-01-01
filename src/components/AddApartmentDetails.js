@@ -53,134 +53,100 @@ function AddApartmentDetails() {
   };
 
   return (
-    <div className="max-w-lg mx-auto bg-gradient-to-br from-blue-500 via-purple-500 to-indigo-600 p-6 rounded-xl shadow-lg">
-      <h2 className="text-white text-xl font-bold mb-4 text-center">Add Apartment Details</h2>
-      <div className="space-y-4">
-        {/* Apartment Name Input */}
+    <div className="max-w-lg mx-auto bg-gradient-to-br from-green-400 via-blue-500 to-purple-600 p-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-300 ease-in-out">
+      <h2 className="text-white text-3xl font-extrabold mb-6 text-center">Add Apartment Details</h2>
+      <div className="space-y-6">
         <div className="relative">
           <input
             type="text"
             ref={ApartmentName}
-            className="w-full px-4 py-2 text-gray-900 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-lg"
+            className="w-full px-6 py-4 text-gray-900 rounded-lg border-none focus:outline-none focus:ring-4 focus:ring-blue-300 transition-colors"
             placeholder="Apartment Name"
-            name="apartmentName"
           />
         </div>
-
-        {/* Builder Name Input */}
         <div className="relative">
           <input
             type="text"
             ref={BuilderName}
-            className="w-full px-4 py-2 text-gray-900 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-lg"
+            className="w-full px-6 py-4 text-gray-900 rounded-lg border-none focus:outline-none focus:ring-4 focus:ring-blue-300 transition-colors"
             placeholder="Builder Name"
-            name="builderName"
           />
         </div>
-
-        {/* Address Input */}
         <div className="relative">
           <input
             type="text"
             ref={Address}
-            className="w-full px-4 py-2 text-gray-900 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-lg"
+            className="w-full px-6 py-4 text-gray-900 rounded-lg border-none focus:outline-none focus:ring-4 focus:ring-blue-300 transition-colors"
             placeholder="Address"
-            name="address"
           />
         </div>
-
-        {/* Area Name Input */}
         <div className="relative">
           <input
             type="text"
             ref={AreaName}
-            className="w-full px-4 py-2 text-gray-900 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-lg"
+            className="w-full px-6 py-4 text-gray-900 rounded-lg border-none focus:outline-none focus:ring-4 focus:ring-blue-300 transition-colors"
             placeholder="Area Name"
-            name="areaName"
           />
         </div>
-
-        {/* City Input */}
         <div className="relative">
           <input
             type="text"
             ref={City}
-            className="w-full px-4 py-2 text-gray-900 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-lg"
+            className="w-full px-6 py-4 text-gray-900 rounded-lg border-none focus:outline-none focus:ring-4 focus:ring-blue-300 transition-colors"
             placeholder="City"
-            name="city"
           />
         </div>
-
-        {/* No. of Wings Input */}
         <div className="relative">
           <input
             type="number"
             ref={NoOfWings}
-            className="w-full px-4 py-2 text-gray-900 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-lg"
+            className="w-full px-6 py-4 text-gray-900 rounded-lg border-none focus:outline-none focus:ring-4 focus:ring-blue-300 transition-colors"
             placeholder="No. of Wings"
-            name="noOfWings"
           />
         </div>
-
-        {/* No. of Flats Input */}
         <div className="relative">
           <input
             type="number"
             ref={NoOfFlats}
-            className="w-full px-4 py-2 text-gray-900 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-lg"
+            className="w-full px-6 py-4 text-gray-900 rounded-lg border-none focus:outline-none focus:ring-4 focus:ring-blue-300 transition-colors"
             placeholder="No. of Flats"
-            name="noOfFlats"
           />
         </div>
-
-        {/* No. of Floors Input */}
         <div className="relative">
           <input
             type="number"
             ref={NoOfFloors}
-            className="w-full px-4 py-2 text-gray-900 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-lg"
+            className="w-full px-6 py-4 text-gray-900 rounded-lg border-none focus:outline-none focus:ring-4 focus:ring-blue-300 transition-colors"
             placeholder="No. of Floors"
-            name="noOfFloors"
           />
         </div>
-
-        {/* Society Name Input */}
         <div className="relative">
           <input
             type="text"
             ref={SocietyName}
-            className="w-full px-4 py-2 text-gray-900 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-lg"
+            className="w-full px-6 py-4 text-gray-900 rounded-lg border-none focus:outline-none focus:ring-4 focus:ring-blue-300 transition-colors"
             placeholder="Society Name"
-            name="societyName"
           />
         </div>
-
-        {/* Registration Number Input */}
         <div className="relative">
           <input
             type="text"
             ref={RegistrationNumber}
-            className="w-full px-4 py-2 text-gray-900 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-lg"
+            className="w-full px-6 py-4 text-gray-900 rounded-lg border-none focus:outline-none focus:ring-4 focus:ring-blue-300 transition-colors"
             placeholder="Registration Number"
-            name="registrationNumber"
           />
         </div>
-
-        {/* Registration Date Input */}
         <div className="relative">
           <input
             type="date"
             ref={RegistrationDate}
-            className="w-full px-4 py-2 text-gray-900 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-lg"
+            className="w-full px-6 py-4 text-gray-900 rounded-lg border-none focus:outline-none focus:ring-4 focus:ring-blue-300 transition-colors"
             placeholder="Registration Date"
-            name="registrationDate"
           />
         </div>
-
-        {/* Submit Button */}
         <div className="text-center">
           <button
-            className="w-full px-4 py-2 font-semibold text-white bg-gradient-to-r from-green-400 to-teal-500 rounded-md shadow-lg hover:from-green-500 hover:to-teal-600 focus:outline-none focus:ring-4 focus:ring-teal-300"
+            className="w-full px-6 py-4 font-semibold text-white bg-gradient-to-r from-pink-500 to-red-500 rounded-lg shadow-lg hover:bg-gradient-to-r hover:from-pink-600 hover:to-red-600 focus:outline-none focus:ring-4 focus:ring-red-300 transition-transform"
             onClick={addApartmentDetails}
           >
             Add Apartment Details

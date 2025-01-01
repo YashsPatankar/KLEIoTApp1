@@ -1,49 +1,68 @@
 import { useState } from "react";
 import "./App.css";
-import LoginPage from "./components/LoginPage";
 import Chairman from "./components/Chairman";
 import Secretary from "./components/Secretary";
 import Owner from "./components/Owner";
 import Security from "./components/Security";
 import AdminDashboard from "./components/AdminDashboard";
+import Home from "./components/Home";
 
-function App() {
+function App() 
+{
   const [loginStatus, setLoginStatus] = useState(false);
   const [userType, setUserType] = useState("");
-  const [username, setUsername] = useState("")
+  const [oid, setOid] = useState()
+  const [firstTime, setFirstTime] = useState(true);
+  const [username, setUsername] = useState("");
   const handleLogout = () => {
     setLoginStatus(false);
     setUserType("");
+    setUsername("");
   };
   return (
     <div className="App">
-
-      {!loginStatus ? (
-        <LoginPage setUsername={setUsername} setLoginStatus={setLoginStatus} setUserType={setUserType} />
-      ) : userType === "Admin" ? <AdminDashboard setLoginStatus={setLoginStatus} /> : userType === "Chairman" ? <Chairman setLoginStatus={setLoginStatus} />
-        : userType === "Secretary" ? <Secretary setLoginStatus={setLoginStatus} /> : userType === "Owner" ?
-          <Owner username={username} setLoginStatus={setLoginStatus} /> : <Security setLoginStatus={setLoginStatus} />}
+      {!loginStatus ? 
+      (
+        <Home
+          firstTime={firstTime}
+          setFirstTime={setFirstTime}
+          setOid={setOid}
+          oid={oid}
+          setLoginStatus={setLoginStatus}
+          setUserType={setUserType}
+          setUsername={setUsername} />
+      ) : userType === "Admin" ? 
+      (
+        <AdminDashboard setLoginStatus={setLoginStatus} />
+      ) : userType === "Chairman" ? 
+      (
+        <Chairman setLoginStatus={setLoginStatus} />
+      ) : userType === "Secretary" ? 
+      (
+        <Secretary setLoginStatus={setLoginStatus} />
+      ) : userType === "Owner" ? 
+      (
+        <div>
+          {/* Header Section */}
+          <header className="bg-white shadow-md p-4 flex justify-between items-center">
+            <h1 className="text-2xl font-bold text-gray-800">
+              Welcome, <span className="text-blue-500">{username || "Owner"}!</span>
+            </h1>
+            <button
+              className="bg-blue-400 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition duration-200"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          </header>
+          <Owner username={username} setLoginStatus={setLoginStatus} oid={oid} />
+        </div>
+      ) : 
+      (
+        <Security setLoginStatus={setLoginStatus} />
+      )}
     </div>
-
-  )
+  );
 }
-const styles = {
-  header: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "10px 20px",
-    backgroundColor: "#f4f4f4",
-    borderBottom: "1px solid #ddd",
-  },
-  logoutButton: {
-    padding: "10px 15px",
-    backgroundColor: "#ff4d4d",
-    color: "#fff",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-  },
-};
 
 export default App;

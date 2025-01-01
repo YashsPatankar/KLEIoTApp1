@@ -1,41 +1,53 @@
-const express=require('express')
-const router=express.Router()
-const client=require("./dbconnect")
+const express = require('express')
+const router = express.Router()
+const client = require("./dbconnect")
 
 const dbName = 'apartmentdatabase';
 db = client.db(dbName);
 
 router.get("/getsummaryexpenses", async (req, res) => {
-    try {
-      const results = await db.collection("Expenses").aggregate([
-        {
-          $addFields: {
-            amount: { $toInt: "$amount" }, // Ensure 'amount' is cast to integer
-          },
-        },
-        {
-          $group: {
-            _id: "$description",
-            total: { $sum: "$amount" }, // Sum the integer values
-          },
-        },
-      ]).toArray();
-  
-      console.log("Aggregation results:", results);
-      res.json(results);
-    } catch (error) {
-      console.error("Error during aggregation:", error);
-      res.status(500).json({ error: "An error occurred while processing your request." });
-    }
-  });
-
-router.post('/addowner',async(req,res)=>{
-  const formData=req.body
-  let oid=formData.oid
   try {
-    const result1=await db.collection('counters').updateOne({},{$set:{"oidcounter":oid}})
-    const result=await db.collection('ownerandmaintainence').insertOne(formData)
-  res.send("Added owner!!!")
+    const results = await db.collection("Expenses").aggregate([
+      {
+        $addFields: {
+          amount: { $toInt: "$amount" }, // Ensure 'amount' is cast to integer
+        },
+      },
+      {
+        $group: {
+          _id: "$description",
+          total: { $sum: "$amount" }, // Sum the integer values
+        },
+      },
+    ]).toArray();
+
+    console.log("Aggregation results:", results);
+    res.json(results);
+  } catch (error) {
+    console.error("Error during aggregation:", error);
+    res.status(500).json({ error: "An error occurred while processing your request." });
+  }
+});
+
+router.post("/setfinancialyear", async (req, res) => {
+  try {
+    const {financialyear} = req.body;
+    console.log(financialyear)
+    const result = await db.collection('counters').updateOne({}, { $set: { financialyear: financialyear } })
+    res.send(result)
+  } catch (error) {
+    console.log(error)
+  }
+
+})
+
+router.post('/addowner', async (req, res) => {
+  const formData = req.body
+  let oid = formData.oid
+  try {
+    const result1 = await db.collection('counters').updateOne({}, { $set: { "oidcounter": oid } })
+    const result = await db.collection('ownerandmaintainence').insertOne(formData)
+    res.send("Added owner!!!")
   } catch (error) {
     console.log(error)
   }
@@ -43,7 +55,7 @@ router.post('/addowner',async(req,res)=>{
 
 router.get('/getoidcount', async (req, res) => {
   try {
-    const oidcount = await db.collection('counters').find().toArray(); 
+    const oidcount = await db.collection('counters').find().toArray();
     console.log(oidcount)
     res.json(oidcount);  // Send the employee data as JSON
   } catch (error) {
@@ -51,37 +63,37 @@ router.get('/getoidcount', async (req, res) => {
   }
 });
 
-router.post('/addemployee',async(req,res)=>{
-  const payload=req.body
+router.post('/addemployee', async (req, res) => {
+  const payload = req.body
   console.log(payload)
   try {
-    const result=await db.collection('employee').insertOne(payload)
-  res.send("added employee!!!")
+    const result = await db.collection('employee').insertOne(payload)
+    res.send("added employee!!!")
   } catch (error) {
     console.log(error)
   }
 })
 
-router.post('/insertapartmentdetails',async(req,res)=>{
-  const payload=req.body
+router.post('/insertapartmentdetails', async (req, res) => {
+  const payload = req.body
   console.log(payload)
   try {
-    const result=await db.collection('apartmentdetails').insertOne(payload)
-  res.send("Added apartment details!!!")
+    const result = await db.collection('apartmentdetails').insertOne(payload)
+    res.send("Added apartment details!!!")
   } catch (error) {
     console.log(error)
   }
 })
 
 router.post("/getmonthwiseexpenses", async (req, res) => {
-  let {description,year}=req.body
-  console.log(description+" "+year)
+  let { description, year } = req.body
+  console.log(description + " " + year)
   try {
     const result = await db.collection("Expenses").aggregate([
       {
         $match: {
-          description:description,
-          year:year,
+          description: description,
+          year: year,
           date: { $exists: true, $ne: null }, // Ensure only documents with valid dates are processed
           amount: { $exists: true, $ne: null } // Ensure only valid amounts are processed
         }
@@ -111,8 +123,8 @@ router.post("/getmonthwiseexpenses", async (req, res) => {
 
     console.log("Aggregation result", transformedData);
     //const chartData = result.map(({ _id, totalAmount }) => ({
-     // month: `${_id.month}-${_id.year}`,
-      //totalAmount,
+    // month: `${_id.month}-${_id.year}`,
+    //totalAmount,
     //}));
     return res.send(transformedData);
   } catch (error) {
@@ -121,4 +133,4 @@ router.post("/getmonthwiseexpenses", async (req, res) => {
   }
 });
 
-  module.exports = router;
+module.exports = router;
