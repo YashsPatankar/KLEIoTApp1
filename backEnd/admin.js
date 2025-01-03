@@ -41,6 +41,17 @@ router.post("/setfinancialyear", async (req, res) => {
 
 })
 
+router.post("/setannualmaintainence", async (req, res) => {
+  try {
+    const {annualmaintainence} = req.body;
+    console.log(annualmaintainence)
+    const result = await db.collection('counters').updateOne({}, { $set: { annualmaintainence: annualmaintainence } })
+    res.send(result)
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 router.post('/addowner', async (req, res) => {
   const formData = req.body
   let oid = formData.oid

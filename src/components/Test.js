@@ -61,7 +61,7 @@ const EnhancedLandingPage = () => {
           {/* Text Content */}
           <div className="text-center md:text-left">
             <h1 className="text-5xl font-extrabold mb-6 leading-tight font-serif">
-              Griha Mitra Property Management
+              Griha Mitra House Keeping
             </h1>
             <p className="text-lg mb-8 text-gray-100">
               Manage your properties effortlessly with cutting-edge tools and intuitive design.

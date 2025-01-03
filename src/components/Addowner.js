@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import AddFlatDetails from "./AddFlatDetails";
 import UpdateFlatOwner from "./UpdateFlatOwner";
 import axios from "axios";
 import "../output.css";
@@ -19,6 +18,8 @@ const AddOwner = () => {
     Adesignation: "Owner",
     famcount: "",
     flatno: "",
+    floorno:"",
+    wing:"",
     maintainence: [],
     Messages: [],
   });
@@ -141,6 +142,7 @@ const AddOwner = () => {
               <input
                 type="email"
                 name="oemail"
+                placeholder="gmail id"
                 value={formData.oemail}
                 onChange={handleChange}
                 required
@@ -154,6 +156,7 @@ const AddOwner = () => {
               <input
                 type="text"
                 name="Login"
+                placeholder="Enter flat No."
                 value={formData.Login}
                 onChange={handleChange}
                 required
@@ -178,7 +181,7 @@ const AddOwner = () => {
                 Family Count
               </label>
               <input
-                type="number"
+                type="text"
                 name="famcount"
                 value={formData.famcount}
                 onChange={handleChange}
@@ -191,9 +194,35 @@ const AddOwner = () => {
                 Flat No
               </label>
               <input
-                type="number"
+                type="text"
                 name="flatno"
                 value={formData.flatno}
+                onChange={handleChange}
+                required
+                className="mt-2 p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Wing
+              </label>
+              <input
+                type="text"
+                name="flatno"
+                value={formData.wing}
+                onChange={handleChange}
+                required
+                className="mt-2 p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Floor Number
+              </label>
+              <input
+                type="text"
+                name="flatno"
+                value={formData.floorno}
                 onChange={handleChange}
                 required
                 className="mt-2 p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
@@ -209,7 +238,6 @@ const AddOwner = () => {
         </form>
       </div>
       <div className="w-full max-w-4xl mt-8">
-        <AddFlatDetails />
         <UpdateFlatOwner />
       </div>
     </div>

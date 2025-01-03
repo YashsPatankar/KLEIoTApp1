@@ -112,7 +112,7 @@ app.get("/api/getinfo", async (req, res) => {
   }
 });
 app.post("/api/Raisedemand", async (req, res) => {
-  const { paymentdescription, year, paymentdate, amount } = req.body;
+  const { paymentdescription,modeofpayment, year, paymentdate, amount, estatus } = req.body;
   const Owner=db.collection("ownerandmaintainence")
   try {
     // Check for duplicate year in the `maintenance` field for any owner
@@ -125,7 +125,7 @@ app.post("/api/Raisedemand", async (req, res) => {
         .status(400)
         .json({ message: "Duplicate year detected in Maintenance field." });
     }
-    const newMaintenance = { paymentdescription, year, paymentdate, amount };
+    const newMaintenance = { paymentdescription, year, paymentdate, amount,estatus };
     const result = await Owner.updateMany(
       {}, // Empty filter to target all documents
       { $push: { maintainence: newMaintenance } }

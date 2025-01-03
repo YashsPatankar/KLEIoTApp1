@@ -26,7 +26,7 @@ function Home({ setLoginStatus, setUserType, oid, setOid, setUsername }) {
   return (
     <Router>
       <div className="min-h-screen flex flex-col bg-gradient-to-r from-cyan-500 to-blue-700">
-        <nav className="bg-gradient-to-r from-cyan-600 to-blue-500">
+        <nav className="bg-gradient-to-r from-blue-600 to-cyan-500">
           <div className="max-w-7xl mx-auto flex justify-between items-center py-4 px-6">
             <h1 className="text-white text-3xl font-extrabold">
               {apartmentName} Apartment Management System

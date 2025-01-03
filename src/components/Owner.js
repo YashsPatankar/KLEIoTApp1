@@ -1,37 +1,73 @@
 import React from "react";
 import ComplaintFeedback from "./Complaint";
 import Maintainance from "./Maintainance";
+import FinancialExpenses from "./FinancialExpenses"
+import { BrowserRouter as Router, Link, Routes, Route } from 'react-router-dom';
 import Financialdata from "./Financialdata";
 import OwnerServices from "./Ownerservices";
 
-function Owner({ oid,username }) {
+function Owner({ oid, username }) {
   return (
-    <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-black min-h-screen text-white p-8">
-      <h1 className="text-center text-4xl font-bold mb-10 tracking-wide text-yellow-300">
-        Owner Dashboard
-      </h1>
-      <div><Financialdata /></div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Maintainance Component */}
-        <div className="p-6 bg-gray-800 rounded-xl shadow-xl hover:shadow-2xl transform transition-transform duration-300 hover:scale-105">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-100">Maintainance</h2>
+    <Router>
+      <nav className="bg-gray-800 p-4 text-white">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <h1 className="text-xl font-bold text-yellow-400">Owner Dashboard</h1>
+          <ul className="flex space-x-4">
+            <li>
+              <Link
+                to="/viewexpenses"
+                className="p-2 rounded hover:bg-gray-700"
+              >
+                View Expenses
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/lodgecomplaint"
+                className="p-2 rounded hover:bg-gray-700"
+              >
+                Lodge Complaint
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/ownerservices"
+                className="p-2 rounded hover:bg-gray-700"
+              >
+                Owner Services
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/paymaintainence"
+                className="p-2 rounded hover:bg-gray-700"
+              >
+                Pay Maintenance
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/expensegraphicview"
+                className="p-2 rounded hover:bg-gray-700"
+              >
+                Expense Graphic View
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </nav>
 
-          <Maintainance oid={oid} username={username} />
-          
-        </div>
-        <div className="p-6 bg-gray-800 rounded-xl shadow-xl hover:shadow-2xl transform transition-transform duration-300 hover:scale-105">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-100">Owner Services Information</h2>
-          
-          <OwnerServices />
-          
-        </div>
-        {/* ComplaintFeedback Component */}
-        <div className="p-6 bg-gray-800 rounded-xl shadow-xl hover:shadow-2xl transform transition-transform duration-300 hover:scale-105">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-100">Complaints Feedback</h2>
-          <ComplaintFeedback username={username} />
-        </div>
+      {/* Define Routes */}
+      <div className="bg-gray-900 text-white p-4">
+        <Routes>
+          <Route path="/viewexpenses" element={<Financialdata />} /> 
+          <Route path="/lodgecomplaint" element={<ComplaintFeedback />} />
+          <Route path="/ownerservices" element={<OwnerServices />} />
+          <Route path="/paymaintainence" element={<Maintainance oid={oid} />} />
+          <Route path="/expensegraphicview" element={<FinancialExpenses />} />
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 }
 
