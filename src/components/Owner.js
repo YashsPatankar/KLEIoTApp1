@@ -5,6 +5,8 @@ import FinancialExpenses from "./FinancialExpenses"
 import { BrowserRouter as Router, Link, Routes, Route } from 'react-router-dom';
 import Financialdata from "./Financialdata";
 import OwnerServices from "./Ownerservices";
+import TempDisplay from "./TempDisplay";
+import Gassensorinfo from "./Gassensorinfo";
 
 function Owner({ oid, username }) {
   return (
@@ -53,6 +55,22 @@ function Owner({ oid, username }) {
                 Expense Graphic View
               </Link>
             </li>
+            <li>
+              <Link
+                to="/viewtemp"
+                className="p-2 rounded hover:bg-gray-700"
+              >
+                View temperature
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/gasinfo"
+                className="p-2 rounded hover:bg-gray-700"
+              >
+                View gas info
+              </Link>
+            </li>
           </ul>
         </div>
       </nav>
@@ -65,6 +83,8 @@ function Owner({ oid, username }) {
           <Route path="/ownerservices" element={<OwnerServices />} />
           <Route path="/paymaintainence" element={<Maintainance oid={oid} />} />
           <Route path="/expensegraphicview" element={<FinancialExpenses />} />
+          <Route path="/viewtemp" element={<TempDisplay />}></Route>
+          <Route path="/gasinfo" element={<Gassensorinfo />}></Route>
         </Routes>
       </div>
     </Router>

@@ -12,7 +12,6 @@ function About() {
             Discover how we help communities thrive with seamless apartment management.
           </p>
         </header>
-
         <section className="bg-white shadow-2xl rounded-lg p-8 space-y-8">
           <div>
             <h2 className="text-3xl font-bold text-teal-500 mb-4">

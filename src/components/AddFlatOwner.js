@@ -55,7 +55,6 @@ function AddFlatOwner() {
           />
         </div>
 
-        {/* Contact Number Input */}
         <div className="relative">
           <input
             type="text"

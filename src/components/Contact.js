@@ -49,7 +49,7 @@ function Contact() {
   <div className="relative w-36 h-36 rounded-full bg-gradient-to-r from-teal-400 via-blue-500 to-purple-600 p-1 shadow-lg">
     <div className="w-full h-full bg-white rounded-full overflow-hidden">
       <img 
-        src="/sunilsir.jpg" 
+        src="/sfr.jpeg" 
         alt="Sunil F Rodd"
         className="w-full h-full object-cover transform transition duration-500 hover:scale-110"
       />

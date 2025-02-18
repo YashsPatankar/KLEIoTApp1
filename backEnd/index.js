@@ -9,6 +9,7 @@ const secretary=require('./secretary')
 const owner=require('./owner')
 const login=require('./login')
 const client=require("./dbconnect")
+const axios=require('axios')
 
 const app = express();
 
@@ -115,7 +116,6 @@ app.post("/api/Raisedemand", async (req, res) => {
   const { paymentdescription,modeofpayment, year, paymentdate, amount, estatus } = req.body;
   const Owner=db.collection("ownerandmaintainence")
   try {
-    // Check for duplicate year in the `maintenance` field for any owner
     const duplicateCheck = await Owner.findOne({
       "maintenence.year": year,
     });
@@ -127,7 +127,7 @@ app.post("/api/Raisedemand", async (req, res) => {
     }
     const newMaintenance = { paymentdescription, year, paymentdate, amount,estatus };
     const result = await Owner.updateMany(
-      {}, // Empty filter to target all documents
+      {},
       { $push: { maintainence: newMaintenance } }
     );
 
@@ -140,25 +140,25 @@ app.post("/api/Raisedemand", async (req, res) => {
     res.status(500).json({ message: "An unexpected error occurred." });
   }
 });
+
 app.get("/api/getDues/:year", async (req, res) => {
-  const year = req.params.year;  // Keep the year as a string, no need to parseInt
-  console.log("Requested year:", year);  // Log the requested year
+  const year = req.params.year;
+  console.log("Requested year:", year);
   try {
     const collection = db.collection("ownerandmaintainence");
 
-    // Find documents where the 'Maintainance' array contains an element matching the year (as a string)
     const Dues = await collection
       .find(
         {
-          "Maintainence.year": year  // Match the 'year' field as a string
+          "Maintainence.year": year 
         },
         {
-          projection: { ofname: 1, olname: 1, Maintainence: 1, _id: 0 }  // Return Afname, Alname, and Maintainance fields
+          projection: { ofname: 1, olname: 1, Maintainence: 1, _id: 0 }
         }
       )
       .toArray();
     
-    console.log("Dues found:", Dues);  // Log the returned data to verify if the query is working
+    console.log("Dues found:", Dues);
     return res.status(200).json(Dues);
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -188,9 +188,6 @@ app.get("/api/getMaintainance/:oid", async (req, res) => {
     return res.status(500).json({ message: "Server error. Please try again later." });
   }
 });
-
-
-
 app.post("/api/getMaintainance", async (req, res) => {
   const { oid,year, estatus } = req.body;  // Assuming the body contains the year and the new status
 
@@ -217,6 +214,28 @@ app.post("/api/getMaintainance", async (req, res) => {
     return res.status(500).json({ message: "Server error. Please try again later." });
   }
 });
+
+app.get('/temperature', async (req, res) => {
+  try {
+    const url = 'https://api.thingspeak.com/channels/2796922/feeds.json?api_key=UVLIOZ47RTOXHCVN&results=2';
+    const response = await axios.get(url);
+
+    // Extract data properly
+    const temperatureData = response.data.feeds.map((feed) => ({
+      time: feed.created_at,
+      temperature: feed.field1, // Field1 (Temperature)
+      gasSensorData: parseFloat(feed.field2) // Field2 (Gas Sensor)
+    }));
+
+    console.log("Gas Data from ThingSpeak: ", temperatureData[0].gasSensorData);
+    console.log("Gas Data from ThingSpeak: ", temperatureData[0].temperature);
+    res.json(temperatureData);
+  } catch (error) {
+    console.error('Error fetching data from ThingSpeak:', error.message);
+    res.status(500).json({ error: 'Failed to fetch data' });
+  }
+});
+
 // app.post("/api/login", async (req, res) => {
 //     const { username, password, userType } = req.body;
 //   console.log(username+" "+password+" "+userType)

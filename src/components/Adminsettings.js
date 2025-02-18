@@ -10,17 +10,17 @@ function AdminSettings() {
     let annualmaintainence1 = annualmaintainence.current.value;
 
     const payload4 = {
-      annualmaintainence:annualmaintainence1
+      annualmaintainence: annualmaintainence1
     }
-    axios.post("http://localhost:9000/api/admin/setannualmaintainence",payload4)
-  .then((response) => {
-    alert("Annual Maintainence amount set successfully!");
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+    axios.post("http://localhost:9000/api/admin/setannualmaintainence", payload4)
+      .then((response) => {
+        alert("Annual Maintainence amount set successfully!");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
-  
+
 
   const setFinancialYear = () => {
     let financialyear1 = financialyear.current.value;

@@ -7,6 +7,8 @@ import LoginPage from "./LoginPage";
 import Test from "./Test";
 import axios from "axios";
 import { FaHome, FaInfoCircle, FaPhone, FaSignInAlt, FaBars } from "react-icons/fa";
+import { FaBuilding } from "react-icons/fa"; // Import the building icon
+
 
 function Home({ setLoginStatus, setUserType, oid, setOid, setUsername }) {
   const [apartmentName, setApartmentname] = useState("");
@@ -25,34 +27,28 @@ function Home({ setLoginStatus, setUserType, oid, setOid, setUsername }) {
 
   return (
     <Router>
-      <div className="min-h-screen flex flex-col bg-gradient-to-r from-cyan-500 to-blue-700">
-        <nav className="bg-gradient-to-r from-blue-600 to-cyan-500">
-          <div className="max-w-7xl mx-auto flex justify-between items-center py-4 px-6">
-            <h1 className="text-white text-3xl font-extrabold">
-              {apartmentName} Apartment Management System
+      <div className="min-h-screen flex flex-col bg-gray-900 text-white"> {/* Dark background */}
+        <nav className="bg-gray-800 shadow-md"> {/* Darker nav */}
+          <div className="max-w-7xl mx-auto flex justify-between items-center py-4 px-8"> {/* Adjusted padding */}
+            <h1 className="text-3xl font-semibold tracking-wider text-blue-400 font-custom-font">
+              {apartmentName} Apartment Management
             </h1>
-            <button className="lg:hidden text-white" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
+            <button className="lg:hidden text-gray-300 hover:text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}> {/* Improved button styling */}
               <FaBars className="h-6 w-6" />
             </button>
-            <div className="hidden lg:flex space-x-6">
+            <div className="hidden lg:flex space-x-8 text-lg font-medium">
               <NavigationLinks />
             </div>
           </div>
           {isMenuOpen && (
-            <div className="lg:hidden bg-gradient-to-r from-blue-500 to-green-500 py-2">
-              <div
-                className="flex flex-col items-center space-y-4"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <NavigationLinks />
-              </div>
+            <div className="lg:hidden bg-gray-700 text-white p-4"> {/* Darker dropdown */}
+              <NavigationLinks />
             </div>
           )}
         </nav>
 
-        <div className="flex-grow p-6">
+        <div className="flex-grow p-8 bg-gray-100"> {/* Darker content area */}
           <Routes>
-            <Route path="/" element={<Test />} />
             <Route path="/home" element={<Test />} />
             <Route path="/about" element={<About />} />
             <Route path="/information" element={<Information />} />
@@ -72,10 +68,9 @@ function Home({ setLoginStatus, setUserType, oid, setOid, setUsername }) {
           </Routes>
         </div>
 
-        {/* Footer */}
-        <footer className="bg-gradient-to-r from-cyan-600 to-blue-500 text-white text-center py-4 mt-6">
-        <p>
-            &copy; {new Date().getFullYear()} {apartmentName} Apartment Management System
+        <footer className="bg-gray-800 text-center py-6 mt-8"> {/* Darker footer */}
+          <p className="text-sm text-gray-400"> {/* Slightly lighter text */}
+            &copy; {new Date().getFullYear()} {apartmentName}. All rights reserved.
           </p>
         </footer>
       </div>
@@ -88,37 +83,37 @@ function NavigationLinks() {
     <>
       <Link
         to="/home"
-        className="text-white text-lg font-medium flex items-center space-x-2 hover:text-gray-200 transition duration-300"
+        className="text-gray-300 hover:text-white transition duration-300 flex items-center space-x-2" // Improved link styling
       >
-        <FaHome />
+        <FaHome className="h-5 w-5" /> {/* Icon size */}
         <span>Home</span>
       </Link>
       <Link
         to="/about"
-        className="text-white text-lg font-medium flex items-center space-x-2 hover:text-gray-200 transition duration-300"
+        className="text-gray-300 hover:text-white transition duration-300 flex items-center space-x-2"
       >
-        <FaInfoCircle />
+        <FaInfoCircle className="h-5 w-5" />
         <span>About</span>
       </Link>
       <Link
         to="/information"
-        className="text-white text-lg font-medium flex items-center space-x-2 hover:text-gray-200 transition duration-300"
+        className="text-gray-300 hover:text-white transition duration-300 flex items-center space-x-2"
       >
-        <FaInfoCircle />
+        <FaBuilding className="h-5 w-5" /> {/* Replaced FaInfoCircle with FaBuilding */}
         <span>Information</span>
       </Link>
       <Link
         to="/contact"
-        className="text-white text-lg font-medium flex items-center space-x-2 hover:text-gray-200 transition duration-300"
+        className="text-gray-300 hover:text-white transition duration-300 flex items-center space-x-2"
       >
-        <FaPhone />
+        <FaPhone className="h-5 w-5" />
         <span>Contact</span>
       </Link>
       <Link
         to="/login"
-        className="text-white text-lg font-medium flex items-center space-x-2 hover:text-gray-200 transition duration-300"
+        className="text-gray-300 hover:text-white transition duration-300 flex items-center space-x-2"
       >
-        <FaSignInAlt />
+        <FaSignInAlt className="h-5 w-5" />
         <span>Login</span>
       </Link>
     </>

@@ -10,48 +10,46 @@ function AdminDashboard({ setLoginStatus }) {
   const logout = () => {
     setLoginStatus(false);
   };
-
   return (
     <Router>
-      <div className="min-h-screen bg-gradient-to-b from-blue-400 to-white px-4 sm:px-6 lg:px-8 py-4">
-        <h1 className="text-2xl sm:text-4xl font-extrabold text-center text-black mb-8">
+      <div className="min-h-screen bg-gradient-to-b from-blue-400 to-indigo-600 px-6 py-10">
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-center text-white mb-12">
           Admin Dashboard
         </h1>
-
-        <nav className="bg-gradient-to-b from-blue-300 to-white shadow-lg rounded-lg mb-8">
-          <div className="max-w-7xl mx-auto p-4 flex flex-wrap justify-center sm:justify-between gap-4">
+        <nav className="bg-white shadow-xl rounded-lg mb-12 p-4">
+          <div className="max-w-7xl mx-auto flex flex-wrap justify-center sm:justify-between gap-6">
             <Link
               to="/add-owner"
-              className="px-4 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 transition-all shadow-md text-center"
+              className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg transform transition duration-300 hover:scale-105 shadow-lg hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600"
             >
               Add Flat Owner
             </Link>
             <Link
               to="/add-employee"
-              className="px-4 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 transition-all shadow-md text-center"
+              className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg transform transition duration-300 hover:scale-105 shadow-lg hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600"
             >
               Add Employee
             </Link>
             <Link
               to="/financial-year"
-              className="px-4 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 transition-all shadow-md text-center"
+              className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg transform transition duration-300 hover:scale-105 shadow-lg hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600"
             >
-              Set financial year
+              Set Financial Year
             </Link>
             <Link
               to="/add-apartment"
-              className="px-4 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 transition-all shadow-md text-center"
+              className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg transform transition duration-300 hover:scale-105 shadow-lg hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600"
             >
               Add Apartment
             </Link>
             <Link
               to="/financial-expenses"
-              className="px-4 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 transition-all shadow-md text-center"
+              className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg transform transition duration-300 hover:scale-105 shadow-lg hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600"
             >
               Financial Expenses
             </Link>
             <button
-              className="px-4 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 transition-all shadow-md text-center"
+              className="px-6 py-3 bg-gradient-to-r from-red-100 to-red-100 text-white font-semibold rounded-lg transform transition duration-300 hover:scale-105 shadow-lg hover:bg-gradient-to-r hover:from-red-100 hover:to-red-100"
               onClick={logout}
             >
               Logout
@@ -59,8 +57,8 @@ function AdminDashboard({ setLoginStatus }) {
           </div>
         </nav>
 
-        {/* Routes */}
-        <div >
+        {/* Dashboard Routes */}
+        <div>
           <Routes>
             <Route path="/add-owner" element={<AddOwner />} />
             <Route path="/add-employee" element={<Addemployee />} />
