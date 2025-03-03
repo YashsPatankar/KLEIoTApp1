@@ -34,30 +34,39 @@ function Contact() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-teal-50 py-16">
       {/* Enhanced Header Section */}
-      <div className="text-center mb-16 px-4">
-  <h1 className="text-5xl font-semibold text-gray-800 mb-4 tracking-tight">Contact Us</h1>
-  <p className="text-gray-500 text-lg max-w-2xl mx-auto">We'd love to hear from you. Send us a message, and we'll get back to you as soon as possible.</p>
-</div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+        <div className="relative overflow-hidden rounded-3xl mb-16 bg-gradient-to-r from-teal-600 to-blue-600 p-8 sm:p-16">
+          <div className="relative z-10 text-center">
+            <h1 className="text-5xl sm:text-6xl font-extrabold text-white mb-6 animate-fade-in">
+              Contact Us
+            </h1>
 
+            <p className="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+              We'd love to hear from you. Send us a message, and we'll get back to you as soon as possible.
+            </p>
+          </div>
+          <div className="absolute top-0 left-0 w-full h-full bg-grid-pattern opacity-10"></div>
+        </div>
+      </div>
 
       {/* Team Section */}
       <div className="max-w-6xl mx-auto mb-16 px-4">
         <div className="grid md:grid-cols-3 gap-8">
           {/* CEO Card */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden col-span-full md:col-span-1 transform transition duration-300 hover:shadow-2xl hover:-translate-y-1">
-          <div className="flex justify-center mt-6">
-  <div className="relative w-36 h-36 rounded-full bg-gradient-to-r from-teal-400 via-blue-500 to-purple-600 p-1 shadow-lg">
-    <div className="w-full h-full bg-white rounded-full overflow-hidden">
-      <img 
-        src="/sfr.jpeg" 
-        alt="Sunil F Rodd"
-        className="w-full h-full object-cover transform transition duration-500 hover:scale-110"
-      />
-    </div>
-  </div>
-</div>
+            <div className="flex justify-center mt-6">
+              <div className="relative w-36 h-36 rounded-full bg-gradient-to-r from-teal-400 via-blue-500 to-purple-600 p-1 shadow-lg">
+                <div className="w-full h-full bg-white rounded-full overflow-hidden">
+                  <img
+                    src="/sfr.jpeg"
+                    alt="Sunil F Rodd"
+                    className="w-full h-full object-cover transform transition duration-500 hover:scale-110"
+                  />
+                </div>
+              </div>
+            </div>
 
-            <div className="p-8">
+            <div className="p-8 text-center">
               <div className="uppercase tracking-wider text-sm text-teal-600 font-bold mb-2">Leadership</div>
               <h2 className="text-3xl font-bold text-gray-900 mb-2">Sunil F Rodd</h2>
               <p className="text-gray-600 font-semibold text-lg">CEO & Founder</p>
@@ -68,18 +77,18 @@ function Contact() {
 
           {/* Developer Cards */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden md:col-span-1 transform transition duration-300 hover:shadow-2xl hover:-translate-y-1">
-          <div className="flex justify-center mt-7">
-  <div className="relative w-36 h-36 rounded-full bg-gradient-to-r from-pink-400 via-yellow-500 to-orange-600 p-1 shadow-lg">
-    <div className="w-full h-full bg-white rounded-full overflow-hidden">
-      <img 
-        src="/shrey.jpg" 
-        alt="Shreyash M Kulkarni"
-        className="w-full h-full object-cover transform transition duration-500 hover:scale-110"
-      />
-    </div>
-  </div>
-</div>
-            <div className="p-8">
+            <div className="flex justify-center mt-7">
+              <div className="relative w-36 h-36 rounded-full bg-gradient-to-r from-pink-400 via-yellow-500 to-orange-600 p-1 shadow-lg">
+                <div className="w-full h-full bg-white rounded-full overflow-hidden">
+                  <img
+                    src="/shrey.jpg"
+                    alt="Shreyash M Kulkarni"
+                    className="w-full h-full object-cover transform transition duration-500 hover:scale-110"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="p-8 text-center">
               <div className="uppercase tracking-wider text-sm text-teal-600 font-bold mb-2">Development Team</div>
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Shreyash M Kulkarni</h2>
               <p className="text-gray-600 font-semibold text-lg">Full Stack Web Dev</p>
@@ -88,18 +97,18 @@ function Contact() {
           </div>
 
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden md:col-span-1 transform transition duration-300 hover:shadow-2xl hover:-translate-y-1">
-          <div className="flex justify-center mt-6">
-  <div className="relative w-36 h-36 rounded-full bg-gradient-to-r from-green-400 via-cyan-500 to-blue-600 p-1 shadow-lg">
-    <div className="w-full h-full bg-white rounded-full overflow-hidden">
-      <img 
-        src="/ani.jpg" 
-        alt="Anirudh S More"
-        className="w-full h-full object-cover transform transition duration-500 hover:scale-110"
-      />
-    </div>
-  </div>
-</div>
-            <div className="p-8">
+            <div className="flex justify-center mt-6">
+              <div className="relative w-36 h-36 rounded-full bg-gradient-to-r from-green-400 via-cyan-500 to-blue-600 p-1 shadow-lg">
+                <div className="w-full h-full bg-white rounded-full overflow-hidden">
+                  <img
+                    src="/ani.jpg"
+                    alt="Anirudh S More"
+                    className="w-full h-full object-cover transform transition duration-500 hover:scale-110"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="p-8 text-center">
               <div className="uppercase tracking-wider text-sm text-teal-600 font-bold mb-2">Development Team</div>
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Anirudh S More</h2>
               <p className="text-gray-600 font-semibold text-lg">Full Stack Web Dev</p>
@@ -206,9 +215,8 @@ function Contact() {
         </form>
 
         {status && (
-          <div className={`mt-6 p-4 rounded-xl text-center font-semibold text-lg ${
-            status.includes("success") ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700"
-          }`}>
+          <div className={`mt-6 p-4 rounded-xl text-center font-semibold text-lg ${status.includes("success") ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700"
+            }`}>
             {status}
           </div>
         )}

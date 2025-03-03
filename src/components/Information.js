@@ -12,7 +12,6 @@ function Information() {
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-teal-50 flex flex-col justify-between">
       <main className="flex-grow flex justify-center items-center px-4 sm:px-6 lg:px-8">
@@ -23,7 +22,6 @@ function Information() {
           <p className="text-gray-700 text-center mb-6 sm:mb-8">
             Explore comprehensive details about your apartment management system.
           </p>
-
           {info.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {info.map((apartment) => (
@@ -62,28 +60,6 @@ function Information() {
           )}
         </div>
       </main>
-
-      <footer className="bg-gray-800 py-4 sm:py-6">
-        <div className="max-w-7xl mx-auto text-center text-white px-4 sm:px-6 lg:px-8">
-          <p className="text-sm">
-            &copy; {new Date().getFullYear()} Apartment Management System. All Rights Reserved.
-          </p>
-          <p className="text-sm mt-2">
-            Built with <span className="text-red-500">❤️</span> for seamless apartment living.
-          </p>
-          <div className="mt-4 flex flex-wrap justify-center space-x-4">
-            <a href="#" className="text-gray-400 hover:text-white">
-              Privacy Policy
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white">
-              Terms of Service
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white">
-              Contact Us
-            </a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

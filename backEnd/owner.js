@@ -9,7 +9,7 @@ router.post('/updatepaymentstatus',async(req,res)=>{
     const payload=req.body
     console.log(payload)
     try {
-      const result=await db.collection('ownerandmaintainence').updateOne({ flatno:payload.username, "maintainence.estatus": "Pending" }, // Query to match flatno and pending status
+      const result=await db.collection('ownerandmaintainence').updateOne({ flatno:payload.username, "maintainence.estatus": "Pending","maintainence.year":payload.year }, // Query to match flatno and pending status
         { $set: { "maintainence.$.estatus": "Paid" } })
     res.send("added message!!!")
     } catch (error) {

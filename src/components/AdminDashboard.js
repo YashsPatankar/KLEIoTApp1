@@ -1,74 +1,123 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom";
+import { Home, Users, UserPlus, Building, DollarSign, Settings, LogOut, Menu, X } from "lucide-react";
 import AddOwner from "./Addowner";
 import Addemployee from "./Addemployee";
 import FinancialExpenses from "./FinancialExpenses";
 import AddApartmentDetails from "./AddApartmentDetails";
 import Adminsettings from "./Adminsettings";
+import DashboardOverview from "./DashboardOverview"; // You'll need to create this component
 
 function AdminDashboard({ setLoginStatus }) {
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
   const logout = () => {
     setLoginStatus(false);
   };
+
   return (
     <Router>
-      <div className="min-h-screen bg-gradient-to-b from-blue-400 to-indigo-600 px-6 py-10">
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-center text-white mb-12">
-          Admin Dashboard
-        </h1>
-        <nav className="bg-white shadow-xl rounded-lg mb-12 p-4">
-          <div className="max-w-7xl mx-auto flex flex-wrap justify-center sm:justify-between gap-6">
-            <Link
-              to="/add-owner"
-              className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg transform transition duration-300 hover:scale-105 shadow-lg hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600"
-            >
-              Add Flat Owner
-            </Link>
-            <Link
-              to="/add-employee"
-              className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg transform transition duration-300 hover:scale-105 shadow-lg hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600"
-            >
-              Add Employee
-            </Link>
-            <Link
-              to="/financial-year"
-              className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg transform transition duration-300 hover:scale-105 shadow-lg hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600"
-            >
-              Set Financial Year
-            </Link>
-            <Link
-              to="/add-apartment"
-              className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg transform transition duration-300 hover:scale-105 shadow-lg hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600"
-            >
-              Add Apartment
-            </Link>
-            <Link
-              to="/financial-expenses"
-              className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg transform transition duration-300 hover:scale-105 shadow-lg hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600"
-            >
-              Financial Expenses
-            </Link>
-            <button
-              className="px-6 py-3 bg-gradient-to-r from-red-100 to-red-100 text-white font-semibold rounded-lg transform transition duration-300 hover:scale-105 shadow-lg hover:bg-gradient-to-r hover:from-red-100 hover:to-red-100"
-              onClick={logout}
-            >
-              Logout
-            </button>
-          </div>
-        </nav>
+      <div className="flex h-screen bg-gray-100">
+        {/* Mobile sidebar toggle */}
+        <div className="lg:hidden fixed top-4 left-4 z-50">
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="p-2 rounded-md bg-white shadow-md"
+          >
+            {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
 
-        {/* Dashboard Routes */}
-        <div>
-          <Routes>
-            <Route path="/add-owner" element={<AddOwner />} />
-            <Route path="/add-employee" element={<Addemployee />} />
-            <Route path="/add-apartment" element={<AddApartmentDetails />} />
-            <Route path="/financial-expenses" element={<FinancialExpenses />} />
-            <Route path="/financial-year" element={<Adminsettings />} />
-          </Routes>
+        {/* Sidebar */}
+        <div className={`fixed lg:static inset-y-0 left-0 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 transition duration-300 ease-in-out bg-indigo-800 text-white w-64 z-40 overflow-y-auto`}>
+          <div className="p-6">
+            <h1 className="text-2xl font-bold mb-6 text-center">Admin Dashboard</h1>
+            <div className="space-y-4">
+              <NavItem to="/" icon={<Home />} label="Home" />
+              <NavItem to="/add-owner" icon={<Users />} label="Add Flat Owners" />
+              <NavItem to="/add-employee" icon={<UserPlus />} label="Employees" />
+              <NavItem to="/add-apartment" icon={<Building />} label="Apartments" />
+              <NavItem to="/financial-expenses" icon={<DollarSign />} label="Expenses" />
+              <NavItem to="/financial-year" icon={<Settings />} label="Settings" />
+
+              <div className="pt-6 mt-6 border-t border-indigo-700">
+                <button
+                  onClick={logout}
+                  className="flex items-center px-4 py-3 text-gray-100 hover:bg-indigo-700 rounded-md w-full transition-colors duration-200"
+                >
+                  <LogOut className="mr-3" size={20} />
+                  <span>Logout</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="flex-1 flex flex-col overflow-hidden">
+          {/* Header */}
+          <header className="bg-white shadow-sm z-10">
+            <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+              <PageTitle />
+            </div>
+          </header>
+
+          {/* Main content area */}
+          <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-gray-50">
+            <div className="max-w-7xl mx-auto">
+              <Routes>
+                <Route path="/" element={<DashboardOverview />} />
+                <Route path="/add-owner" element={<AddOwner />} />
+                <Route path="/add-employee" element={<Addemployee />} />
+                <Route path="/add-apartment" element={<AddApartmentDetails />} />
+                <Route path="/financial-expenses" element={<FinancialExpenses />} />
+                <Route path="/financial-year" element={<Adminsettings />} />
+              </Routes>
+            </div>
+          </main>
         </div>
       </div>
     </Router>
+  );
+}
+
+// Navigation Item Component
+function NavItem({ to, icon, label }) {
+  const location = useLocation();
+  const isActive = location.pathname === to;
+
+  return (
+    <Link
+      to={to}
+      className={`flex items-center px-4 py-3 rounded-md transition-colors duration-200 ${isActive
+          ? 'bg-indigo-700 text-white'
+          : 'text-indigo-100 hover:bg-indigo-700 hover:text-white'
+        }`}
+    >
+      <span className="mr-3">{icon}</span>
+      <span>{label}</span>
+    </Link>
+  );
+}
+
+// Dynamic Page Title based on current route
+function PageTitle() {
+  const location = useLocation();
+  const path = location.pathname;
+
+  const titles = {
+    '/': 'Dashboard Overview',
+    '/add-owner': 'Manage Flat Owners',
+    '/add-employee': 'Manage Employees',
+    '/add-apartment': 'Apartment Management',
+    '/financial-expenses': 'Financial Expenses',
+    '/financial-year': 'System Settings'
+  };
+
+  return (
+    <h1 className="text-2xl font-semibold text-gray-800">
+      {titles[path] || 'Admin Dashboard'}
+    </h1>
   );
 }
 

@@ -5,25 +5,25 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 function Employee() {
     const [employees, setEmployee] = useState([])
-    const [financialyear,setFinancialyear]=useState()
+    const [financialyear, setFinancialyear] = useState()
     const month = useRef("")
     const year = useRef("")
     const amount = useRef("")
     const sstatus = useRef("")
     const saldate = useRef("")
 
-    useEffect(()=>{
+    useEffect(() => {
         axios.get("http://localhost:9000/api/secretary/getfinancialyear")
-        .then(response=>{
-            setFinancialyear(response.data)
-        })
-        .catch(error=>{
-            console.log(error)
-        })
-    },[financialyear])
+            .then(response => {
+                setFinancialyear(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }, [financialyear])
 
     useEffect(() => {
-        axios.get("http://localhost:9000/api/secretary/getallemployees/"+financialyear)
+        axios.get("http://localhost:9000/api/secretary/getallemployees/" + financialyear)
             .then(response => {
                 setEmployee(response.data)
             })
@@ -220,14 +220,14 @@ function Employee() {
                                 border: '1px solid #ccc',
                             }}>
                             <option selected>Enter salary year</option>
-                            <option>2020</option>
-                            <option>2021</option>
-                            <option>2022</option>
-                            <option>2023</option>
-                            <option>2024</option>
-                            <option>2025</option>
-                            <option>2026</option>
-                            <option>2027</option>
+                            <option>2020-21</option>
+                            <option>2021-22</option>
+                            <option>2022-23</option>
+                            <option>2023-24</option>
+                            <option>2024-25</option>
+                            <option>2025-26</option>
+                            <option>2026-27</option>
+                            <option>2027-28</option>
                         </select>
                         <input
                             type="text"
@@ -267,4 +267,4 @@ function Employee() {
         </div>
     )
 }
-export default Employee
+export default Employee;

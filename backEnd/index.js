@@ -45,6 +45,10 @@ app.use('/api/chairman',chairman)
 app.use('/api/owner',owner)
 app.use('/api/login',login)
 
+// app.get("/api/getstats", async (req,res)=>{
+
+//   const ownersCount = await db.collection('ownerandmaintainence').countDocuments();})
+
 app.post('/api/create-order', async (req, res) => {
   
   try {
@@ -95,7 +99,6 @@ app.get("/api/getAptname", async (req, res) => {
   try {
     const collection = db.collection("Apartment");
     const Apartment = await collection.find({}).toArray();
-    console.log(Apartment)
     return res.status(200).send(Apartment);
   } catch (error) {
     console.error("Error ", error);

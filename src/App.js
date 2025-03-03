@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BrowserRouter} from "react-router-dom";
 import "./App.css";
 import Chairman from "./components/Chairman";
 import Secretary from "./components/Secretary";
@@ -10,6 +11,7 @@ import Home from "./components/Home";
 function App() 
 {
   const [loginStatus, setLoginStatus] = useState(false);
+    const [login,setLogin]=useState("")
   const [userType, setUserType] = useState("");
   const [oid, setOid] = useState()
   const [firstTime, setFirstTime] = useState(true);
@@ -30,13 +32,15 @@ function App()
           oid={oid}
           setLoginStatus={setLoginStatus}
           setUserType={setUserType}
-          setUsername={setUsername} />
+          setUsername={setUsername}
+          setLogin={setLogin} />
       ) : userType === "Admin" ? 
       (
         <AdminDashboard setLoginStatus={setLoginStatus} />
       ) : userType === "Chairman" ? 
       (
-        <Chairman setLoginStatus={setLoginStatus} />
+        <BrowserRouter>
+        <Chairman setLoginStatus={setLoginStatus} /></BrowserRouter>
       ) : userType === "Secretary" ? 
       (
         <Secretary setLoginStatus={setLoginStatus} />
@@ -55,7 +59,7 @@ function App()
               Logout
             </button>
           </header>
-          <Owner username={username} setLoginStatus={setLoginStatus} oid={oid} />
+          <Owner username={username} setLoginStatus={setLoginStatus} oid={oid} login={login}/>
         </div>
       ) : 
       (

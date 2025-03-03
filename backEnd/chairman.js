@@ -5,15 +5,28 @@ const client=require("./dbconnect")
 const dbName = 'apartmentdatabase';
 db = client.db(dbName);
 
-router.post('/postmessage',async(req,res)=>{
-    const {msg,flatno}=req.body
+router.post('/postmessage', async (req, res) => {
+    const { msg, flatno } = req.body;
+
     try {
-      const result=await db.collection('ownerandmaintainence').updateOne({flatno:flatno},{$push:{Messages:{postedtext:msg}}})
-    res.send("added message!!!")
+        // Insert into the 'ownerandmaintainence' collection
+        const result = await db.collection('ownerandmaintainence').updateOne(
+            { flatno: flatno },
+            { $push: { Messages: { postedtext: msg } } }
+        );
+
+        // Insert into the 'messages' collection
+        const result1 = await db.collection('messages').insertOne({
+            message: msg,
+        });
+
+        res.send("Message added to both collections!");
     } catch (error) {
-      console.log(error)
+        console.log(error);
+        res.status(500).send("Error occurred while adding the message.");
     }
-})
+});
+
 
 router.post('/postnotice',async(req,res)=>{
     const payload1=req.body

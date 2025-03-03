@@ -18,7 +18,7 @@ const FinancialExpenses = () => {
   const [expenseData, setExpenseData] = useState([]);
   const [selectedDescription, setSelectedDescription] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
-  const [monthWiseData, setMonthWiseData] = useState(null);
+  const [monthWiseData, setMonthWiseData] = useState(null); // Null for clear differentiation
 
   // Fetch overall summary expenses
   useEffect(() => {
@@ -36,17 +36,15 @@ const FinancialExpenses = () => {
       alert("Please select a description.");
       return;
     }
-
     const payload = {
       description: selectedDescription,
-      year: selectedYear,
-    };
+      year: selectedYear
+    }
 
-    axios
-      .post("http://localhost:9000/api/admin/getmonthwiseexpenses", payload)
+    axios.post("http://localhost:9000/api/admin/getmonthwiseexpenses", payload)
+
       .then((response) => {
         const data = response.data;
-
         if (Array.isArray(data)) {
           setMonthWiseData(data);
         } else {
@@ -77,24 +75,9 @@ const FinancialExpenses = () => {
 
   // Data for the month-wise expenses chart
   const monthWiseChartData = {
-    labels: monthWiseData
-      ? monthWiseData.map((item) =>
-          [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
-          ][item.month - 1] || "Unknown"
-        )
-      : [],
+    labels: monthWiseData ? monthWiseData.map((item) => item.month === 1 ? "January" : item.month === 2 ? "Feburury" : item.month === 3 ? "Martch" :
+      item.month === 4 ? "April" : item.month === 5 ? "May" : item.month === 6 ? "June" : item.month === 7 ? "July" : item.month === 8 ? "August" :
+        item.month === 9 ? "September" : item.month === 10 ? "October" : item.month === 11 ? "November" : "December" || "Unknown") : [],
     datasets: [
       {
         label: `Expenses for ${selectedDescription}`,
@@ -121,14 +104,14 @@ const FinancialExpenses = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-gray-100 to-indigo-200 py-10 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto p-6 sm:p-8 lg:p-10 bg-white shadow-2xl rounded-xl border border-gray-200">
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-indigo-800 text-center mb-8 lg:mb-12">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-gray-100 to-indigo-200 py-10">
+      <div className="max-w-7xl mx-auto p-10 bg-white shadow-2xl rounded-xl border border-gray-200">
+        <h1 className="text-5xl font-extrabold text-indigo-800 text-center mb-12">
           📊 Financial Expenses Dashboard
         </h1>
 
         {/* Overall Financial Chart */}
-        <div className="h-80 sm:h-96 lg:h-[500px] mb-8 lg:mb-12">
+        <div className="h-96 mb-12">
           {expenseData.length > 0 ? (
             <Bar data={overallChartData} options={chartOptions} />
           ) : (
@@ -137,48 +120,52 @@ const FinancialExpenses = () => {
         </div>
 
         {/* Filter Section */}
-        <div className="mt-6">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-4 lg:mb-6 text-center">
-            Filter Month-Wise Expenses
+        <div className="mt-8">
+          <h2 className="text-3xl font-semibold text-gray-800 mb-6 text-center">
+            Filter Year-Wise Expenses
           </h2>
-          <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+          <div className="flex flex-wrap justify-center gap-6">
             {/* Dropdown for Expense Description */}
             <select
               value={selectedDescription}
               onChange={(e) => setSelectedDescription(e.target.value)}
-              className="w-full sm:w-auto px-4 py-3 bg-white border rounded-lg shadow focus:outline-none"
+              className="px-4 py-3 bg-white border rounded-lg shadow focus:outline-none"
             >
               <option value="" disabled>
                 Select a description
               </option>
-              <option value="electricity_bill">Electricity Bill</option>
-              <option value="water_bill">Water Bill</option>
-              <option value="plumbing_charges">Plumbing Charges</option>
+              <option value="Electricity bill paid">Electricity Bill</option>
+              <option value="Water bill paid">Water Bill</option>
+              <option value="Watchman salary">Watchman salary</option>
               <option value="electrician_charges">Electrician Charges</option>
               <option value="lift_maintenance_charges">Lift Maintenance Charges</option>
               <option value="others">Others</option>
             </select>
 
-            {/* Dropdown for Year */}
-            <select
-              value={selectedYear}
+            <select value={selectedYear}
               onChange={(e) => setSelectedYear(e.target.value)}
-              className="w-full sm:w-auto px-4 py-3 bg-white border rounded-lg shadow focus:outline-none"
+              className="px-4 py-3 bg-white border rounded-lg shadow focus:outline-none"
             >
-              <option value="" disabled>
-                Select a Year
-              </option>
-              {Array.from({ length: 12 }, (_, i) => 2024 + i).map((year) => (
-                <option key={year} value={year}>
-                  {year}
-                </option>
-              ))}
+              <option value="" disabled>Select a Year</option>
+              <option value="2022">2022</option>
+              <option value="2023">2023</option>
+              <option value="2024">2024</option>
+              <option value="2025">2025</option>
+              <option value="2026">2026</option>
+              <option value="2027">2027</option>
+              <option value="2028">2028</option>
+              <option value="2029">2029</option>
+              <option value="2030">2030</option>
+              <option value="2031">2031</option>
+              <option value="2032">2032</option>
+              <option value="2033">2033</option>
+              <option value="2034">2034</option>
+              <option value="2035">2035</option>
             </select>
-
             {/* Button for Fetching Data */}
             <button
               onClick={fetchMonthWiseExpenses}
-              className="w-full sm:w-auto px-8 py-3 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600"
+              className="px-8 py-3 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600"
             >
               Get Data
             </button>
@@ -186,7 +173,7 @@ const FinancialExpenses = () => {
         </div>
 
         {/* Month-Wise Financial Chart */}
-        <div className="h-80 sm:h-96 lg:h-[500px] mt-8 lg:mt-12">
+        <div className="h-96 mt-12">
           {monthWiseData ? (
             <Bar data={monthWiseChartData} options={chartOptions} />
           ) : (

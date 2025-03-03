@@ -29,8 +29,8 @@ router.get('/getfinancialyear', async (req,res)=>{
 })
 
 router.get('/getallemployees/:year', async (req, res) => {
-  const year = req.params.year; // Extract year parameter from the request
-
+  const year = req.params.year;
+   // Extract year parameter from the request
   try {
     // Query to match `year` inside any object in `empsalarydet` array
     const employees = await db.collection('employee').find({
@@ -45,7 +45,7 @@ router.get('/getallemployees/:year', async (req, res) => {
       empsalarydet: employee.empsalarydet.filter(salary => salary.year === year)
     }));
 
-    res.status(200).json(filteredEmployees);
+    res.status(200).send(filteredEmployees);
   } catch (error) {
     console.error('Error fetching employees:', error);
     res.status(500).json({ message: 'Error fetching employee data', error });

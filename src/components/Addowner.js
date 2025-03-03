@@ -18,8 +18,8 @@ const AddOwner = () => {
     Adesignation: "Owner",
     famcount: "",
     flatno: "",
-    floorno:"",
-    wing:"",
+    floorno: "",
+    wing: "",
     maintainence: [],
     Messages: [],
   });
@@ -117,9 +117,9 @@ const AddOwner = () => {
                 className="mt-2 p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
               >
                 <option value="">Select Gender</option>
-                <option value="m">Male</option>
-                <option value="f">Female</option>
-                <option value="o">Other</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+                <option value="O">Other</option>
               </select>
             </div>
             <div>
@@ -203,12 +203,10 @@ const AddOwner = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Wing
-              </label>
+              <label className="block text-sm font-medium text-gray-700">Wing</label>
               <input
                 type="text"
-                name="flatno"
+                name="wing"
                 value={formData.wing}
                 onChange={handleChange}
                 required
@@ -216,12 +214,10 @@ const AddOwner = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Floor Number
-              </label>
+              <label className="block text-sm font-medium text-gray-700">Floor Number</label>
               <input
                 type="text"
-                name="flatno"
+                name="floorno"
                 value={formData.floorno}
                 onChange={handleChange}
                 required
