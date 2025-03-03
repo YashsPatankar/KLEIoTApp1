@@ -1,9 +1,0 @@
-mongo atlas 
-
-project name apartmentmanagement
-cluster name ApartmentCluster
-
-username- anirudhmore96
-password- Fullstackanirudh96
-
-connection string - mongodb+srv://anirudhmore96:Fullstackanirudh96@apartmentcluster.sa5bh.mongodb.net/
