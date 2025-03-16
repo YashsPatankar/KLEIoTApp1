@@ -220,7 +220,7 @@ function AddApartmentDetails() {
                 placeholder="Enter area name"
                 reference={AreaName}
               />
-              <InputField
+              <InputField 
                 icon={<FaCity className="text-gray-500" size={16} />}
                 label="City"
                 placeholder="Enter city name"
