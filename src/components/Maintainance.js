@@ -44,7 +44,6 @@ function Maintainance({ oid, username, login }) {
       username: login
     };
 
-    console.log(payload2);
     axios.post("http://localhost:9000/api/owner/updatepaymentstatus", payload2)
       .then(response => {
         alert("Status updated");
@@ -141,9 +140,8 @@ function Maintainance({ oid, username, login }) {
                 {maintainance.map((M, index) => (
                   <tr
                     key={index}
-                    className={`${
-                      index % 2 === 0 ? 'bg-gray-800' : 'bg-gray-700'
-                    } hover:bg-gray-600 transition-colors duration-200`}
+                    className={`${index % 2 === 0 ? 'bg-gray-800' : 'bg-gray-700'
+                      } hover:bg-gray-600 transition-colors duration-200`}
                   >
                     <td className="border border-gray-600 p-3">{M.year}</td>
                     <td className="border border-gray-600 p-3">{M.paymentdescription}</td>

@@ -11,32 +11,29 @@ import {
   Home, FileText, DollarSign, BarChart2, Thermometer, Wind,
   Menu, X, LogOut, User, ChevronRight, Settings, Bell
 } from 'lucide-react';
+import DisplayTenants from "./DisplayTenants";
 
-function Owner({ oid, username, login }) {
+function Owner({ oid, username, setLoginStatus ,login }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [notifications, setNotifications] = useState(3); // Example notification count
+  const [notifications, setNotifications] = useState(3);
   const [currentTime, setCurrentTime] = useState(new Date());
-
-  // Update time every minute
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 60000);
     return () => clearInterval(timer);
   }, []);
-
-  // Navigation items array for easier management
   const navItems = [
     { to: "/viewexpenses", label: "View Expenses", icon: <DollarSign size={18} />, color: "text-blue-500" },
     { to: "/lodgecomplaint", label: "Lodge Complaint", icon: <FileText size={18} />, color: "text-green-500" },
     { to: "/ownerservices", label: "Owner Services", icon: <User size={18} />, color: "text-purple-500" },
+    { to: "/tenantview", label: "View Tenant Info", icon: <User size={18} />, color: "text-white-500" },
     { to: "/paymaintainence", label: "Pay Maintenance", icon: <DollarSign size={18} />, color: "text-amber-500" },
     { to: "/expensegraphicview", label: "Expense Graphics", icon: <BarChart2 size={18} />, color: "text-indigo-500" },
     { to: "/viewtemp", label: "Temperature", icon: <Thermometer size={18} />, color: "text-red-500" },
     { to: "/gasinfo", label: "Gas Info", icon: <Wind size={18} />, color: "text-cyan-500" },
   ];
 
-  // Custom NavLink component to handle active state
   const NavLink = ({ to, children, className, color }) => {
     const location = useLocation();
     const isActive = location.pathname === to;
@@ -119,7 +116,7 @@ function Owner({ oid, username, login }) {
                 ))}
                 <li className="pt-2 border-t border-gray-700">
                   <button
-                    onClick={() => login(false)}
+                    onClick={() => setLoginStatus(false)}
                     className="w-full flex items-center p-3 rounded-lg text-red-400 hover:bg-gray-700 hover:text-red-300"
                   >
                     <LogOut size={18} className="mr-3" />
@@ -167,7 +164,7 @@ function Owner({ oid, username, login }) {
                 ))}
                 <li className="pt-6 mt-6 border-t border-gray-700">
                   <button
-                    onClick={() => login(false)}
+                    onClick={() => setLoginStatus(false)}
                     className="w-full flex items-center p-3 rounded-lg text-red-400 hover:bg-gray-700 hover:text-red-300 transition-all duration-200"
                   >
                     <LogOut size={18} className="mr-3" />
@@ -217,6 +214,7 @@ function Owner({ oid, username, login }) {
                 <Route path="/viewexpenses" element={<Financialdata />} />
                 <Route path="/lodgecomplaint" element={<ComplaintFeedback />} />
                 <Route path="/ownerservices" element={<OwnerServices />} />
+                <Route path="/tenantview" element={<DisplayTenants oid={oid}/>} />
                 <Route path="/paymaintainence" element={<Maintainance oid={oid} login={login} />} />
                 <Route path="/expensegraphicview" element={<FinancialExpenses />} />
                 <Route path="/viewtemp" element={<TempDisplay />} />

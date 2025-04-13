@@ -11,7 +11,7 @@ import Home from "./components/Home";
 function App() 
 {
   const [loginStatus, setLoginStatus] = useState(false);
-    const [login,setLogin]=useState("")
+  const [login,setLogin]=useState("")
   const [userType, setUserType] = useState("");
   const [oid, setOid] = useState()
   const [firstTime, setFirstTime] = useState(true);
