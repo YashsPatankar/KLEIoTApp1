@@ -6,8 +6,7 @@ function DisplayTenants({ oid }) {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        setIsLoading(true);
+    useEffect( () => {
         axios.get(`http://localhost:9000/api/owner/gettenants/${oid}`)
             .then(response => {
                 setTenants(response.data);
@@ -18,7 +17,7 @@ function DisplayTenants({ oid }) {
                 setError("Failed to load tenants. Please try again later.");
                 setIsLoading(false);
             });
-    }, [oid]); 
+    }, [oid,tenants]); 
     
 
     if (isLoading) {
@@ -38,12 +37,10 @@ function DisplayTenants({ oid }) {
         );
     }
     const changestatus=(tenant)=>{
-
         const payload={
             oid:oid,
             tenant:tenant
         }
-
         axios.post("http://localhost:9000/api/owner/updatetenantstatus",payload)
         .then(response=>{
             alert("Status updated !!")

@@ -9,7 +9,6 @@ function CollectMaintainence() {
         <input></input>
         <input></input>
         <input></input>
-        <input></input>
     </div>
   )
 }

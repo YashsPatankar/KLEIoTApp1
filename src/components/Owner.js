@@ -6,6 +6,7 @@ import FinancialExpenses from "./FinancialExpenses";
 import Financialdata from "./Financialdata";
 import OwnerServices from "./Ownerservices";
 import TempDisplay from "./TempDisplay";
+import AddTenant from "./AddTenant"
 import Gassensorinfo from "./Gassensorinfo";
 import {
   Home, FileText, DollarSign, BarChart2, Thermometer, Wind,
@@ -25,6 +26,7 @@ function Owner({ oid, username, setLoginStatus ,login }) {
   }, []);
   const navItems = [
     { to: "/viewexpenses", label: "View Expenses", icon: <DollarSign size={18} />, color: "text-blue-500" },
+    { to: "/addtenant", label: "Add New Tenant", icon: <User size={18} />, color: "text-peachpuff-500" },
     { to: "/lodgecomplaint", label: "Lodge Complaint", icon: <FileText size={18} />, color: "text-green-500" },
     { to: "/ownerservices", label: "Owner Services", icon: <User size={18} />, color: "text-purple-500" },
     { to: "/tenantview", label: "View Tenant Info", icon: <User size={18} />, color: "text-white-500" },
@@ -213,6 +215,7 @@ function Owner({ oid, username, setLoginStatus ,login }) {
               <Routes>
                 <Route path="/viewexpenses" element={<Financialdata />} />
                 <Route path="/lodgecomplaint" element={<ComplaintFeedback />} />
+                <Route path="/addtenant" element={<AddTenant />} />
                 <Route path="/ownerservices" element={<OwnerServices />} />
                 <Route path="/tenantview" element={<DisplayTenants oid={oid}/>} />
                 <Route path="/paymaintainence" element={<Maintainance oid={oid} login={login} />} />

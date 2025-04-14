@@ -37,7 +37,7 @@ function App()
       ) : userType === "Admin" ? 
       (
         <AdminDashboard setLoginStatus={setLoginStatus} />
-      ) : userType === "Chairman" ? 
+      ) : userType === "Chairman" ?
       (
         <BrowserRouter>
         <Chairman setLoginStatus={setLoginStatus} /></BrowserRouter>
@@ -47,7 +47,6 @@ function App()
       ) : userType === "Owner" ? 
       (
         <div>
-          {/* Header Section */}
           <header className="bg-white shadow-md p-4 flex justify-between items-center">
             <h1 className="text-2xl font-bold text-gray-800">
               Welcome, <span className="text-blue-500">{username || "Owner"}!</span>

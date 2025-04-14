@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import UpdateFlatOwner from "./UpdateFlatOwner";
 import axios from "axios";
 import "../output.css";
-import AddTenant from "./AddTenant";
 
 const AddOwner = () => {
   const oidcount = useRef(0);
@@ -236,7 +235,6 @@ const AddOwner = () => {
       </div>
       <div className="w-full max-w-4xl mt-8">
         <UpdateFlatOwner />
-        <AddTenant />
       </div>
     </div>
   );
