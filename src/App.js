@@ -47,17 +47,6 @@ function App()
       ) : userType === "Owner" ? 
       (
         <div>
-          <header className="bg-white shadow-md p-4 flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-gray-800">
-              Welcome, <span className="text-blue-500">{username || "Owner"}!</span>
-            </h1>
-            <button
-              className="bg-blue-400 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition duration-200"
-              onClick={handleLogout}
-            >
-              Logout
-            </button>
-          </header>
           <Owner username={username} setLoginStatus={setLoginStatus} oid={oid} login={login}/>
         </div>
       ) : 

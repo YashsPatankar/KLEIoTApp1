@@ -248,7 +248,7 @@ function LocationDisplay() {
   return (
     <div className="flex items-center">
       <Link to="/" className="text-blue-600 hover:text-blue-800 flex items-center transition-colors">
-        <Home size={16} className="mr-1" /> Home
+        <Home size={20} className="mr-1" /><b> Home</b>
       </Link>
       <ChevronRight size={16} className="mx-2 text-gray-400" />
       <span className="text-gray-600 font-medium">{formattedPath}</span>
@@ -273,8 +273,16 @@ function WelcomeDashboard({ username }) {
       desc: "Review financial records and expenses", color: "bg-blue-50 hover:bg-blue-100", textColor: "text-blue-800"
     },
     {
+      to: "/addtenant", title: "Add New Tenant", icon: <User className="text-red-500" size={24} />,
+      desc: "Add new tenants at your home", color: "bg-red-50 hover:bg-purple-100", textColor: "text-green-800"
+    },
+    {
       to: "/lodgecomplaint", title: "Lodge Complaint", icon: <FileText className="text-green-500" size={24} />,
       desc: "Submit issues or feedback", color: "bg-green-50 hover:bg-green-100", textColor: "text-green-800"
+    },
+    {
+      to: "/tenantview", title: "View Tenants", icon: <User className="text-orange-500" size={24} />,
+      desc: "View your tenant Info", color: "bg-green-50 hover:bg-green-100", textColor: "text-green-800"
     },
     {
       to: "/paymaintainence", title: "Pay Maintenance", icon: <DollarSign className="text-purple-500" size={24} />,

@@ -430,7 +430,7 @@ function NavLink({ to, label, icon }) {
 
 function Secretary({ setLoginStatus }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [userName, setUserName] = useState("Admin Secretary");
+  const [userName, setUserName] = useState("Secretary");
   const [currentTime, setCurrentTime] = useState(new Date());
   const location = useLocation();
 

@@ -54,33 +54,88 @@ router.get('/getallemployees/:year', async (req, res) => {
 
 router.get('/paymentdues', async (req, res) => {
   try {
-    console.log("Fetching payment dues...");
-    
-    // Get the collection
     const collection = db.collection('ownerandmaintainence');
-    
-    // Define the projection (to fetch only the 'maintainence' field and exclude '_id')
-    const projection = { ofname: 1, olname: 1, Adesignation: 1, maintainence: 1, _id: 0 };
 
-    // Fetch the data from MongoDB with the updated filter to exclude Adesignation === "Security"
-    const result = await collection.find({ Adesignation: { $ne: "Security" } }, { projection }).toArray();
+    const projection = {
+      oid: 1,
+      ofname: 1,
+      olname: 1,
+      Adesignation: 1,
+      maintainence: 1,
+      _id: 0
+    };
 
-    // Log the result for debugging purposes
-    console.log(result);
+    const result = await collection.find(
+      {
+        Adesignation: { $ne: "Security" },
+        maintainence: {
+          $elemMatch: { estatus: "Pending" }
+        }
+      },
+      { projection }
+    ).toArray();
 
-    // Send the response with the result
-    res.send(result);
+    const filteredResult = result.map(doc => ({
+      ...doc,
+      maintainence: doc.maintainence.filter(entry => entry.estatus === "Pending")
+    }));
+
+    res.send(filteredResult);
   } catch (error) {
-    // Handle any errors
     console.error('Error fetching data:', error);
     res.status(500).json({ message: 'Error fetching payment dues', error });
   }
 });
 
+router.post('/recievepayment', async (req, res) => {
+  const {
+    oid,
+    year,
+    paymentdescription,
+    modeofpayment,
+    estatus,
+  } = req.body;
+
+  if (!oid || !year) {
+    return res.status(400).json({ message: 'oid and year are required to update maintenance entry.' });
+  }
+
+  try {
+    const OwnerAndMaintenance = db.collection('ownerandmaintainence');
+
+    // Update the specific maintenance entry using arrayFilters
+    const result = await OwnerAndMaintenance.updateOne(
+      { oid: parseInt(oid) },
+      {
+        $set: {
+          'maintainence.$[elem].paymentdescription': paymentdescription,
+          'maintainence.$[elem].modeofpayment': modeofpayment,
+          'maintainence.$[elem].estatus': estatus
+        }
+      },
+      {
+        arrayFilters: [
+          { 'elem.year': year }
+        ]
+      }
+    );
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ message: 'No matching maintenance entry found to update.' });
+    }
+
+    res.status(200).json({ message: 'Maintenance entry updated successfully.' });
+
+  } catch (error) {
+    console.error('Error updating maintenance entry:', error);
+    res.status(500).json({ message: 'Server error', error });
+  }
+});
+
+
 router.get('/getlodgedcomplaints', async (req, res) => {
   try {
     const complaints = await db.collection('complaints').find().toArray();  // Fetch all employees from MongoDB
-    console.log(complaints)
     res.send(complaints);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching data', error });
@@ -89,7 +144,6 @@ router.get('/getlodgedcomplaints', async (req, res) => {
 
 router.post('/generatesalarydetails', async (req, res) => {
   const {payload,empid}=req.body
-  console.log(payload)
   try {
     const result = await db.collection('employee').updateOne({empid:empid},{$push:{empsalarydet:payload}}); 
   //  res.send("Employee salary Added sucess") // Insert the new employee document
