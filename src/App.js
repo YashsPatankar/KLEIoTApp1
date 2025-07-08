@@ -36,14 +36,16 @@ function App()
           setLogin={setLogin} />
       ) : userType === "Admin" ? 
       (
+        
         <AdminDashboard setLoginStatus={setLoginStatus} />
       ) : userType === "Chairman" ?
       (
         <BrowserRouter>
-        <Chairman setLoginStatus={setLoginStatus} /></BrowserRouter>
+        <Chairman setLoginStatus={setLoginStatus}></Chairman>
+        </BrowserRouter>
       ) : userType === "Secretary" ? 
       (
-        <Secretary setLoginStatus={setLoginStatus} />
+        <Secretary setLoginStatus={setLoginStatus}></Secretary>
       ) : userType === "Owner" ? 
       (
         <div>
@@ -51,7 +53,7 @@ function App()
         </div>
       ) : 
       (
-        <Security setLoginStatus={setLoginStatus} />
+        <Security setLoginStatus={setLoginStatus}></Security>
       )}
     </div>
   );

@@ -5,9 +5,15 @@ const client = require("./dbconnect")
 const dbName = 'apartmentdatabase';
 db = client.db(dbName);
 
-router.get("/getsummaryexpenses", async (req, res) => {
+router.get("/getsummaryexpenses/:selectedYear", async (req, res) => {
+  const year=req.params.selectedYear
   try {
     const results = await db.collection("Expenses").aggregate([
+      {
+        $match: {
+          year: year // Filter documents with year as "2023-2024"
+        }
+      },      
       {
         $addFields: {
           amount: { $toInt: "$amount" }, // Ensure 'amount' is cast to integer
@@ -15,8 +21,9 @@ router.get("/getsummaryexpenses", async (req, res) => {
       },
       {
         $group: {
-          _id: "$description",
-          total: { $sum: "$amount" }, // Sum the integer values
+          _id: "$personOrAgencyName",
+          total: { $sum: "$amount" },
+           // Sum the integer values
         },
       },
     ]).toArray();

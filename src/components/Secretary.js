@@ -1,567 +1,480 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Link, useLocation } from "react-router-dom";
-import axios from "axios";
+import {BrowserRouter as Router,Route,Routes,Link,useLocation,Navigate} from "react-router-dom";
+import {Bell,LogOut,  Settings,User,Home,CreditCard,FileText,Mail,DollarSign,AlertCircle,PlusCircle,ChevronRight,Menu,X,Calendar,Clock,BarChart3,
+  Building,Shield,Users,Sun,Moon,Coffee} from "lucide-react";
 import Employee from "./Employee";
 import Paymentdue from "./Paymentdue";
 import Raisedemand from "./Raisedemand";
 import Viewcomplaints from "./Viewcomplaints";
+import AddExpense from "./AddExpense";
+import SendReminder  from './SendReminder';
 
-function AddExpense() {
-  const [expense, setExpense] = useState({
-    date: "",
-    amount: "",
-    description: "",
-    status: "",
-    modeOfPayment: "",
-    personOrAgencyName: "",
-    monthOfPayment: "",
-  });
-  const [loading, setLoading] = useState(false);
-  const [notification, setNotification] = useState({ show: false, type: "", message: "" });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setExpense((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleAddExpense = (event) => {
-    event.preventDefault();
-    setLoading(true);
-
-    axios
-      .post("http://localhost:9000/api/secretary/addExpense", expense)
-      .then(() => {
-        setNotification({
-          show: true,
-          type: "success",
-          message: "Expense added successfully!"
-        });
-        setExpense({
-          date: "",
-          amount: "",
-          description: "",
-          status: "",
-          modeOfPayment: "",
-          personOrAgencyName: "",
-          monthOfPayment: "",
-        });
-      })
-      .catch((err) => {
-        console.error("Error adding expense:", err);
-        setNotification({
-          show: true,
-          type: "error",
-          message: "Failed to add expense. Please try again."
-        });
-      })
-      .finally(() => {
-        setLoading(false);
-        setTimeout(() => setNotification({ show: false, type: "", message: "" }), 3000);
-      });
-  };
-
-  const paymentModes = ["Cash", "Card", "UPI", "Bank Transfer", "Check", "Other"];
-  const statuses = ["Paid", "Pending", "Partially Paid", "Cancelled"];
-  const months = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
-
-  return (
-    <div className="container mx-auto px-4 py-8">
-      {notification.show && (
-        <div className={`mb-4 p-4 rounded-lg ${notification.type === "success" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
-          {notification.message}
-        </div>
-      )}
-      <div className="max-w-2xl mx-auto bg-white text-gray-900 p-8 rounded-lg shadow-xl">
-        <h2 className="text-center text-2xl font-semibold mb-6 text-blue-600 flex items-center justify-center">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z" />
-          </svg>
-          Add New Expense
-        </h2>
-        <form className="space-y-6" onSubmit={handleAddExpense}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <label className="text-sm font-medium flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                Expense Date
-              </label>
-              <input
-                type="date"
-                name="date"
-                value={expense.date}
-                onChange={handleInputChange}
-                required
-                className="w-full px-4 py-2 rounded-lg bg-gray-50 text-gray-700 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Expense Amount
-              </label>
-              <div className="relative">
-                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">₹</span>
-                <input
-                  type="number"
-                  name="amount"
-                  value={expense.amount}
-                  onChange={handleInputChange}
-                  placeholder="Enter amount"
-                  required
-                  className="w-full pl-8 px-4 py-2 rounded-lg bg-gray-50 text-gray-700 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-sm font-medium flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
-              </svg>
-              Description
-            </label>
-            <textarea
-              name="description"
-              value={expense.description}
-              onChange={handleInputChange}
-              placeholder="Describe the expense"
-              required
-              className="w-full px-4 py-2 rounded-lg bg-gray-50 text-gray-700 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              rows="3"
-            />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <label className="text-sm font-medium flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Status
-              </label>
-              <select
-                name="status"
-                value={expense.status}
-                onChange={handleInputChange}
-                required
-                className="w-full px-4 py-2 rounded-lg bg-gray-50 text-gray-700 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              >
-                <option value="">Select status</option>
-                {statuses.map(status => (
-                  <option key={status} value={status}>{status}</option>
-                ))}
-              </select>
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                </svg>
-                Mode of Payment
-              </label>
-              <select
-                name="modeOfPayment"
-                value={expense.modeOfPayment}
-                onChange={handleInputChange}
-                required
-                className="w-full px-4 py-2 rounded-lg bg-gray-50 text-gray-700 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              >
-                <option value="">Select payment mode</option>
-                {paymentModes.map(mode => (
-                  <option key={mode} value={mode}>{mode}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <label className="text-sm font-medium flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-                Person/Agency Name
-              </label>
-              <input
-                type="text"
-                name="personOrAgencyName"
-                value={expense.personOrAgencyName}
-                onChange={handleInputChange}
-                placeholder="Name of person or agency"
-                required
-                className="w-full px-4 py-2 rounded-lg bg-gray-50 text-gray-700 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                Payment Month
-              </label>
-              <select
-                name="monthOfPayment"
-                value={expense.monthOfPayment}
-                onChange={handleInputChange}
-                required
-                className="w-full px-4 py-2 rounded-lg bg-gray-50 text-gray-700 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              >
-                <option value="">Select month</option>
-                {months.map(month => (
-                  <option key={month} value={month}>{month}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition duration-300 ease-in-out flex items-center justify-center"
-          >
-            {loading ? (
-              <svg className="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
-            )}
-            {loading ? "Processing..." : "Add Expense"}
-          </button>
-        </form>
-      </div>
-    </div>
-  );
-}
-
-function SendReminder() {
-  const [reminder, setReminder] = useState({
-    oid: "",
-    reminder: "",
-  });
-  const [loading, setLoading] = useState(false);
-  const [notification, setNotification] = useState({ show: false, type: "", message: "" });
-  const [owners, setOwners] = useState([]);
-  const [templates, setTemplates] = useState([
-    "This is a gentle reminder that your maintenance payment is due.",
-    "Please be informed that your maintenance payment for this month is pending.",
-    "Kindly clear your pending maintenance payment at your earliest convenience."
-  ]);
-  const [selectedTemplate, setSelectedTemplate] = useState("");
-
-  useEffect(() => {
-    // Mock data for demonstration purposes
-    setOwners([
-      { id: "OWN001", name: "John Doe", flat: "A-101" },
-      { id: "OWN002", name: "Jane Smith", flat: "B-202" },
-      { id: "OWN003", name: "Robert Johnson", flat: "C-303" }
-    ]);
-  }, []);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setReminder((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleTemplateChange = (e) => {
-    const value = e.target.value;
-    setSelectedTemplate(value);
-    setReminder(prev => ({ ...prev, reminder: value }));
-  };
-
-  const handleSendReminder = (event) => {
-    event.preventDefault();
-    setLoading(true);
-
-    axios
-      .post("http://localhost:9000/api/secretary/sendReminder", reminder)
-      .then(() => {
-        setNotification({
-          show: true,
-          type: "success",
-          message: "Reminder sent successfully!"
-        });
-        setReminder({ oid: "", reminder: "" });
-        setSelectedTemplate("");
-      })
-      .catch((err) => {
-        console.error("Error sending reminder:", err);
-        setNotification({
-          show: true,
-          type: "error",
-          message: "Failed to send reminder. Please try again."
-        });
-      })
-      .finally(() => {
-        setLoading(false);
-        setTimeout(() => setNotification({ show: false, type: "", message: "" }), 3000);
-      });
-  };
-
-  return (
-    <div className="container mx-auto px-4 py-8">
-      {notification.show && (
-        <div className={`mb-4 p-4 rounded-lg ${notification.type === "success" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
-          {notification.message}
-        </div>
-      )}
-      <div className="max-w-2xl mx-auto bg-white text-gray-900 p-8 rounded-lg shadow-xl">
-        <h2 className="text-center text-2xl font-semibold mb-6 text-teal-600 flex items-center justify-center">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
-          </svg>
-          Send Payment Reminder
-        </h2>
-        <form className="space-y-6" onSubmit={handleSendReminder}>
-          <div className="space-y-2">
-            <label className="text-sm font-medium flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-              Owner's ID
-            </label>
-            <select
-              name="oid"
-              value={reminder.oid}
-              onChange={handleInputChange}
-              required
-              className="w-full px-4 py-2 rounded-lg bg-gray-50 text-gray-700 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-            >
-              <option value="">Select Owner</option>
-              {owners.map(owner => (
-                <option key={owner.id} value={owner.id}>
-                  {owner.id} - {owner.name} ({owner.flat})
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-sm font-medium flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-              </svg>
-              Message Template
-            </label>
-            <select
-              value={selectedTemplate}
-              onChange={handleTemplateChange}
-              className="w-full px-4 py-2 rounded-lg bg-gray-50 text-gray-700 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-            >
-              <option value="">Select a template or write custom message</option>
-              {templates.map((template, index) => (
-                <option key={index} value={template}>
-                  {template.substring(0, 40)}...
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-sm font-medium flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-              </svg>
-              Reminder Message
-            </label>
-            <textarea
-              name="reminder"
-              value={reminder.reminder}
-              onChange={handleInputChange}
-              placeholder="Type your reminder message here"
-              required
-              className="w-full px-4 py-2 rounded-lg bg-gray-50 text-gray-700 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-              rows="4"
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3 bg-teal-600 text-white rounded-lg font-semibold hover:bg-teal-700 transition duration-300 ease-in-out flex items-center justify-center"
-          >
-            {loading ? (
-              <svg className="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-              </svg>
-            )}
-            {loading ? "Sending..." : "Send Reminder"}
-          </button>
-        </form>
-      </div>
-    </div>
-  );
-}
-
-// Navigation link component for better UX
 function NavLink({ to, label, icon }) {
   const location = useLocation();
   const isActive = location.pathname === to;
-
   return (
     <Link
       to={to}
-      className={`px-6 py-2 rounded-lg transition duration-300 flex items-center ${isActive
-          ? "bg-white text-blue-700 shadow-md"
-          : "bg-blue-500 text-white hover:bg-blue-700"
-        }`}
+      className={`flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+        isActive
+          ? "bg-gray-700 text-white shadow-lg transform scale-105"
+          : "text-gray-300 hover:bg-gray-800 hover:text-white hover:transform hover:translate-x-1"
+      }`}
     >
-      {icon}
-      <span className="ml-2">{label}</span>
+      <span className={`mr-3 ${isActive ? "text-yellow-400" : ""}`}>{icon}</span>
+      {label}
     </Link>
   );
 }
 
+// Card component for the home dashboard
+function DashboardCard({ title, icon, description, linkTo, count, color = "blue" }) {
+  const colorClasses = {
+    blue: "bg-blue-50 text-blue-600 border-blue-100 hover:border-blue-300",
+    green: "bg-green-50 text-green-600 border-green-100 hover:border-green-300",
+    purple: "bg-purple-50 text-purple-600 border-purple-100 hover:border-purple-300",
+    orange: "bg-orange-50 text-amber-600 border-orange-100 hover:border-orange-300",
+    red: "bg-red-50 text-red-600 border-red-100 hover:border-red-300",
+    indigo: "bg-indigo-50 text-indigo-600 border-indigo-100 hover:border-indigo-300"
+  };
+  
+  const iconBgClass = colorClasses[color].split(' ')[0];
+  const iconTextClass = colorClasses[color].split(' ')[1];
+  const borderClass = colorClasses[color].split(' ')[2];
+  const hoverClass = colorClasses[color].split(' ')[3];
+
+  return (
+    <Link 
+      to={linkTo} 
+      className={`bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden border ${borderClass} ${hoverClass} flex flex-col h-full transform hover:scale-105`}
+    >
+      <div className="p-5">
+        <div className="flex items-center justify-between mb-3">
+          <div className={`${iconBgClass} p-3 rounded-lg`}>
+            {React.cloneElement(icon, { className: iconTextClass })}
+          </div>
+          {count !== undefined && (
+            <div className={`${iconBgClass} px-3 py-1 rounded-full ${iconTextClass} text-sm font-medium`}>
+              {count}
+            </div>
+          )}
+        </div>
+        <h3 className="font-semibold text-lg text-gray-800 mb-1">{title}</h3>
+        <p className="text-gray-600 text-sm">{description}</p>
+      </div>
+      <div className="mt-auto p-4 border-t border-gray-100 flex items-center justify-end text-blue-600 text-sm font-medium">
+        View Details <ChevronRight size={16} className="ml-1" />
+      </div>
+    </Link>
+  );
+}
+
+// Function to get greeting based on time of day
+function getGreeting() {
+  const hour = new Date().getHours();
+  if (hour < 12) return "Good morning";
+  if (hour < 17) return "Good afternoon";
+  return "Good evening";
+}
+
+// Home dashboard component
+function Dashboard() {
+  return (
+    <div className="space-y-6 pb-6">
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl p-6 text-white shadow-lg">
+        <div className="flex items-center space-x-2 mb-1">
+          {new Date().getHours() < 12 ? (
+            <Sun size={24} className="text-yellow-300" />
+          ) : new Date().getHours() < 17 ? (
+            <Sun size={24} className="text-yellow-300" />
+          ) : (
+            <Moon size={24} className="text-blue-300" />
+          )}
+          <h2 className="text-xl font-medium text-blue-100">{getGreeting()}, Secretary!</h2>
+        </div>
+        <h1 className="text-2xl font-bold mb-2">Welcome to Your Dashboard</h1>
+        <p className="opacity-90">Manage society finances, communications, and operations efficiently from one place.</p>
+        <div className="flex items-center mt-4 text-sm">
+          <div className="flex items-center mr-4">
+            <Clock size={16} className="mr-1" />
+            <span>{new Date().toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</span>
+          </div>
+          <div className="flex items-center">
+            <Calendar size={16} className="mr-1" />
+            <span>5 tasks pending today</span>
+          </div>
+        </div>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <DashboardCard 
+          title="Add Expense" 
+          icon={<PlusCircle size={24} />} 
+          description="Record and categorize new society expenses"
+          linkTo="/add-expense"
+          color="blue"
+        />
+        
+        <DashboardCard 
+          title="Send Reminders" 
+          icon={<Mail size={24} />} 
+          description="Send payment reminders to residents"
+          linkTo="/send-reminder"
+          count="5"
+          color="purple"
+        />
+        
+        <DashboardCard 
+          title="Process Salaries" 
+          icon={<DollarSign size={24} />} 
+          description="Manage and process staff salary payments"
+          linkTo="/make-salary"
+          color="green"
+        />
+        
+        <DashboardCard 
+          title="Raise Demands" 
+          icon={<FileText size={24} />} 
+          description="Create payment requests for society members"
+          linkTo="/raise-demand"
+          color="orange"
+        />
+        
+        <DashboardCard 
+          title="Payment Dues" 
+          icon={<CreditCard size={24} />} 
+          description="Track outstanding payments and dues"
+          linkTo="/view-paymentdues"
+          count="12"
+          color="red"
+        />
+        
+        <DashboardCard 
+          title="Complaints" 
+          icon={<AlertCircle size={24} />} 
+          description="View and manage resident complaints"
+          linkTo="/view-lodgedcomplaints"
+          count="3"
+          color="indigo"
+        />
+      </div>
+      
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="bg-white rounded-xl shadow-md p-5 border border-gray-100">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-semibold text-lg text-gray-800 flex items-center">
+              <Clock size={18} className="mr-2 text-blue-500" /> Recent Activities
+            </h3>
+            <button className="text-blue-600 text-sm font-medium hover:underline">
+              View All
+            </button>
+          </div>
+          <div className="space-y-3">
+            {[
+              { text: "Payment reminder sent to Flat 203", time: "10 minutes ago", icon: <Mail size={16} className="text-purple-500" /> },
+              { text: "New complaint registered from Flat 108", time: "1 hour ago", icon: <AlertCircle size={16} className="text-red-500" /> },
+              { text: "Maintenance expense of ₹12,500 added", time: "3 hours ago", icon: <PlusCircle size={16} className="text-green-500" /> },
+              { text: "Salary processed for security staff", time: "Yesterday", icon: <DollarSign size={16} className="text-blue-500" /> }
+            ].map((activity, index) => (
+              <div key={index} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
+                <div className="flex items-center">
+                  <div className="bg-gray-100 p-2 rounded-full mr-3">
+                    {activity.icon}
+                  </div>
+                  <span className="text-gray-700">{activity.text}</span>
+                </div>
+                <span className="text-xs text-gray-500">{activity.time}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-xl shadow-md p-5 border border-gray-100">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-semibold text-lg text-gray-800 flex items-center">
+              <BarChart3 size={18} className="mr-2 text-blue-500" /> Quick Stats
+            </h3>
+            <div className="bg-blue-50 text-blue-600 px-2 py-1 rounded text-xs font-medium">
+              This Month
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { label: "Total Revenue", value: "₹2,45,000", change: "+5.2%", icon: <DollarSign size={20} className="text-green-500" /> },
+              { label: "Pending Dues", value: "₹32,750", change: "-2.1%", icon: <CreditCard size={20} className="text-red-500" /> },
+              { label: "Expenses", value: "₹1,18,300", change: "+1.8%", icon: <FileText size={20} className="text-orange-500" /> },
+              { label: "Active Complaints", value: "7", change: "-3", icon: <AlertCircle size={20} className="text-purple-500" /> }
+            ].map((stat, index) => (
+              <div key={index} className="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors duration-200">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="text-sm text-gray-500 flex items-center">
+                    {stat.icon}
+                    <span className="ml-2">{stat.label}</span>
+                  </div>
+                </div>
+                <div className="flex items-end justify-between">
+                  <div className="text-lg font-semibold text-gray-900">{stat.value}</div>
+                  <div className={`text-xs font-medium px-2 py-1 rounded ${stat.change.startsWith('+') ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
+                    {stat.change}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 gap-6">
+        <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-xl shadow-lg p-6 text-white">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
+            <div className="space-y-2 mb-4 md:mb-0">
+              <h3 className="text-xl font-semibold flex items-center">
+                <Building size={20} className="mr-2 text-yellow-400" />
+                Society Overview
+              </h3>
+              <p className="text-gray-300 text-sm">Update society information and settings</p>
+            </div>
+            <div className="flex space-x-4">
+              <div className="bg-gray-800 p-3 rounded-lg border border-gray-700 text-center flex flex-col justify-center min-w-16">
+                <span className="text-sm text-gray-400">Buildings</span>
+                <span className="text-xl font-bold">3</span>
+              </div>
+              <div className="bg-gray-800 p-3 rounded-lg border border-gray-700 text-center flex flex-col justify-center min-w-16">
+                <span className="text-sm text-gray-400">Units</span>
+                <span className="text-xl font-bold">124</span>
+              </div>
+              <div className="bg-gray-800 p-3 rounded-lg border border-gray-700 text-center flex flex-col justify-center min-w-16">
+                <span className="text-sm text-gray-400">Staff</span>
+                <span className="text-xl font-bold">18</span>
+              </div>
+            </div>
+          </div>
+          <div className="flex space-x-4 mt-6">
+            <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm flex items-center transition-colors duration-200">
+              <Shield size={16} className="mr-1" /> Security Staff
+            </button>
+            <button className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm flex items-center transition-colors duration-200">
+              <Users size={16} className="mr-1" /> Society Members
+            </button>
+            <button className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm flex items-center transition-colors duration-200">
+              <Settings size={16} className="mr-1" /> Settings
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Secretary({ setLoginStatus }) {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [userName, setUserName] = useState("Secretary");
+  const [userName] = useState("Secretary");
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-
+    const timer = setInterval(() => setCurrentTime(new Date()), 60000);
     return () => clearInterval(timer);
   }, []);
 
-  const formatTime = (date) => {
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  };
+  const formatTime = () =>
+    currentTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
-  const formatDate = (date) => {
-    return date.toLocaleDateString([], {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+  const formatDate = () =>
+    currentTime.toLocaleDateString([], {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric"
     });
-  };
 
   const getPageTitle = () => {
-    const path = location.pathname;
-    switch (path) {
-      case "/add-expense": return "Add Expense";
-      case "/send-reminder": return "Send Reminder";
-      case "/make-salary": return "Make Salary";
-      case "/raise-demand": return "Raise Demand";
-      case "/view-paymentdues": return "View Payment Dues";
-      case "/view-lodgedcomplaints": return "View Complaints";
-      default: return "Dashboard";
-    }
+    const titles = {
+      "/": "Dashboard Overview",
+      "/add-expense": "Add Expense",
+      "/send-reminder": "Send Reminder",
+      "/make-salary": "Process Salaries",
+      "/raise-demand": "Raise Demand",
+      "/view-paymentdues": "Payment Dues",
+      "/view-lodgedcomplaints": "Complaints Management"
+    };
+    return titles[location.pathname] || "Secretary Dashboard";
   };
-
-  const logout = () => setLoginStatus(false);
 
   const navigationItems = [
     {
+      path: "/",
+      label: "Dashboard",
+      icon: <Home size={18} />
+    },
+    {
       path: "/add-expense",
       label: "Add Expense",
-      icon: <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z" />
-      </svg>
+      icon: <PlusCircle size={18} />
     },
     {
       path: "/send-reminder",
       label: "Send Reminder",
-      icon: <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
-      </svg>
+      icon: <Mail size={18} />
     },
     {
       path: "/make-salary",
-      label: "Make Salary",
-      icon: <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z" />
-      </svg>
+      label: "Process Salaries",
+      icon: <DollarSign size={18} />
     },
     {
       path: "/raise-demand",
       label: "Raise Demand",
-      icon: <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-      </svg>
+      icon: <FileText size={18} />
     },
     {
       path: "/view-paymentdues",
-      label: "View Payment Dues",
-      icon: <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-      </svg>
+      label: "Payment Dues",
+      icon: <CreditCard size={18} />
     },
     {
       path: "/view-lodgedcomplaints",
-      label: "View Complaints",
-      icon: <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-      </svg>
+      label: "Complaints",
+      icon: <AlertCircle size={18} />
     }
   ];
-
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-900 flex flex-col">
-      <header className="bg-gradient-to-r from-blue-600 to-blue-800 text-white shadow-lg">
-        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <div>
-            <h1 className="text-2xl font-semibold">{getPageTitle()}</h1>
-            <p className="text-sm text-gray-100">{formatDate(currentTime)} | {formatTime(currentTime)}</p>
-          </div>
-          <div className="flex items-center gap-4">
-            <span className="font-medium">{userName}</span>
-            <button
-              onClick={logout}
-              className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md text-white text-sm font-semibold"
+    <div className="flex h-screen bg-gray-50 overflow-hidden">
+      {mobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={() => setMobileMenuOpen(false)}
+        ></div>
+      )}
+      <aside 
+        className={`${
+          mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+        } fixed top-0 left-0 h-full z-50 lg:z-0 lg:static lg:translate-x-0 w-72 bg-gradient-to-b from-gray-900 to-gray-800 shadow-xl transition-transform duration-300 ease-in-out flex flex-col`}
+      >
+        <div className="p-6">
+          <div className="flex items-center justify-between">
+            <h1 className="text-xl font-bold text-white flex items-center">
+              <Coffee className="mr-2 text-yellow-400" size={22} />
+              <span className="text-yellow-400">Secretary</span>
+              <span className="ml-1 text-white">Dashboard</span>
+            </h1>
+            <button 
+              className="lg:hidden text-gray-400 hover:text-white"
+              onClick={() => setMobileMenuOpen(false)}
             >
-              Logout
+              <X size={20} />
             </button>
           </div>
+          <div className="mt-6 bg-gray-800 rounded-lg p-4 border border-gray-700">
+            <div className="flex items-center space-x-3">
+              <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-3 rounded-full text-white">
+                <User size={20} />
+              </div>
+              <div>
+                <div className="text-white font-medium">{userName}</div>
+                <div className="text-xs text-gray-400">Society Secretary</div>
+              </div>
+            </div>
+          </div>
         </div>
-      </header>
-
-      <div className="flex flex-1">
-        {/* Sidebar */}
-        <aside className={`bg-blue-600 text-white w-64 p-6 transition-transform ${sidebarOpen ? 'block' : 'hidden'} md:block`}>
-          <nav className="space-y-2">
-            {navigationItems.map(item => (
-              <NavLink key={item.path} to={item.path} label={item.label} icon={item.icon} />
-            ))}
-          </nav>
-        </aside>
-
-        {/* Main content */}
-        <main className="flex-1 p-6">
+        <div className="px-4 py-2">
+          <div className="text-xs uppercase text-gray-500 font-semibold tracking-wider pl-4 mb-2">
+            Main Menu
+          </div>
+        </div>
+        <nav className="px-4 space-y-1 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
+          {navigationItems.map((item) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              label={item.label}
+              icon={item.icon}
+            />
+          ))}
+        </nav>
+        <div className="p-4 border-t border-gray-700 mt-auto">
+          <button
+            onClick={() => setLoginStatus(false)}
+            className="w-full flex items-center p-3 rounded-lg text-red-400 hover:bg-gray-700 hover:text-red-300 transition-all duration-200"
+          >
+            <LogOut size={18} className="mr-3" />
+            Logout
+          </button>
+        </div>
+      </aside>
+      <main className="flex-1 flex flex-col overflow-hidden">
+        <div className="bg-white p-4 shadow-sm border-b border-gray-100 flex items-center justify-between">
+          <div className="flex items-center">
+            <button 
+              className="mr-4 text-gray-500 hover:text-gray-700 lg:hidden"
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              <Menu size={24} />
+            </button>
+            <div className="flex items-center">
+              <div className="text-lg font-semibold text-gray-800">
+                {getPageTitle()}
+              </div>
+              <div className="ml-4 px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-600 flex items-center">
+                <Clock size={14} className="mr-1" />
+                {formatTime()}
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center space-x-4">
+            <div className="hidden md:block text-gray-600 text-sm">
+              <span className="font-medium text-blue-600">{getGreeting()}</span>, {userName}
+            </div>
+            <button 
+              className="relative p-2 text-gray-600 hover:bg-gray-100 rounded-full transition-colors duration-200"
+              aria-label="Notifications"
+            >
+              <Bell size={20} />
+              <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+            </button>
+            <button 
+              className="p-2 text-gray-600 hover:bg-gray-100 rounded-full transition-colors duration-200"
+              aria-label="Settings"
+            >
+              <Settings size={20} />
+            </button>
+            <div className="hidden md:flex items-center border-l pl-4 ml-2 border-gray-200">
+              <div className="bg-blue-100 text-blue-800 p-2 rounded-full">
+                <User size={18} />
+              </div>
+              <span className="ml-2 text-gray-700 font-medium">
+                {userName}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="bg-white px-6 py-2 text-sm border-b border-gray-100">
+          <div className="flex items-center text-gray-500">
+            <Link to="/" className="hover:text-blue-600 flex items-center">
+              <Home size={14} className="mr-1" /> Home
+            </Link>
+            {location.pathname !== "/" && (
+              <>
+                <ChevronRight size={16} className="mx-2" />
+                <span className="text-gray-800">{getPageTitle()}</span>
+              </>
+            )}
+          </div>
+        </div>
+        <div className="flex-1 overflow-y-auto bg-gray-50 p-6">
           <Routes>
-            <Route path="/add-expense" element={<AddExpense />} />
-            <Route path="/send-reminder" element={<SendReminder />} />
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/send-reminder" element={<SendReminder />} /> 
+            <Route path="/add-expense" element={<AddExpense />} /> 
             <Route path="/make-salary" element={<Employee />} />
             <Route path="/raise-demand" element={<Raisedemand />} />
             <Route path="/view-paymentdues" element={<Paymentdue />} />
             <Route path="/view-lodgedcomplaints" element={<Viewcomplaints />} />
-            <Route path="*" element={<div className="text-gray-600 text-lg">Welcome to the Secretary Dashboard!</div>} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
-        </main>
-      </div>
-
-      <footer className="bg-gray-200 text-center py-4 text-sm text-gray-600">
-        &copy; {new Date().getFullYear()} Society Management System. All rights reserved.
-      </footer>
+        </div>
+      </main>
     </div>
   );
 }

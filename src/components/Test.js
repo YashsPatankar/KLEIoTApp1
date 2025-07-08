@@ -61,10 +61,10 @@ const EnhancedLandingPage = () => {
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="relative z-10">
                 <h1 className="text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">
-                  Griha Mitra
+                  Vasati-Samuchaya
                 </h1>
                 <p className="text-xl text-gray-700 mb-8 leading-relaxed max-w-2xl mx-auto text-justify">
-                  Simplify property management with <span className="font-semibold text-teal-500">GrihaMitra</span>.
+                  Simplify property management with <span className="font-semibold text-teal-500">Vasati-Samuchaya</span>.
                   Our platform provides a seamless experience for managing apartments—from tenant communication to maintenance scheduling.
                   Enhance efficiency, streamline operations, and elevate tenant satisfaction with a reliable solution tailored to your needs.
                 </p>

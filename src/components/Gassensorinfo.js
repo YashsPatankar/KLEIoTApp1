@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import gasSensorImage from './images/gasSensor.jpg';
 
 function GasSensorInfo() {
   const [gasSensorData, setGasSensorData] = useState([]);
@@ -74,6 +75,8 @@ function GasSensorInfo() {
           </svg>
           Gas Sensor Monitoring
         </h2>
+        <img src={gasSensorImage} alt="Gas Sensor" className="mt-2 w-full h-48 object-cover rounded" />
+        
       </div>
 
       <div className="p-4">
@@ -99,7 +102,7 @@ function GasSensorInfo() {
                 {gasSensorData.map((item, index) => (
                   index > 0 && (
                     <div key={index} className="mb-2 p-3 rounded border-l-4 hover:bg-gray-50 transition-colors" 
-                         style={{ borderLeftColor: getStatusColor(item.gasSensorData).replace('bg-', '') }}>
+                         style={{ width:'100px',height:'100px', borderLeftColor: getStatusColor(item.gasSensorData).replace('bg-', '') }}>
                       <div className="flex justify-between items-center">
                         <span className="text-gray-500 text-sm">{new Date(item.time).toLocaleString()}</span>
                         <div className="flex items-center">

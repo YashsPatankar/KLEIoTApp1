@@ -62,10 +62,10 @@ function FinancialData() {
         
         return financeData.reduce((acc, item) => {
             return {
-                totalCollected: acc.totalCollected + Number(item.amountcollected),
-                totalExpenses: acc.totalExpenses + Number(item.expenses),
-                totalExpected: acc.totalExpected + Number(item.amountexpected),
-                netBalance: acc.netBalance + Number(item.balance)
+                totalCollected: 0,//acc.totalCollected + Number(item.amountcollected),
+                totalExpenses:0, //acc.totalExpenses + Number(item.expenses),
+                totalExpected:0, //acc.totalExpected + Number(item.amountexpected),
+                netBalance:0, //acc.netBalance + Number(item.balance)
             };
         }, { totalCollected: 0, totalExpenses: 0, totalExpected: 0, netBalance: 0 });
     };

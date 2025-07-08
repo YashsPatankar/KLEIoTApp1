@@ -49,37 +49,7 @@ function AddTenant() {
 
     // Handle form submission
     const addtenant = async () => {
-        if (!validateForm()) return;
-        
-        setIsSubmitting(true);
-        
-        const payload = {
-            tname: tname.current.value,
-            taadhar: taadhar.current.value,
-            taddress: taddress.current.value,
-            tcell: tcell.current.value,
-            tod: tod.current.value,
-            tld: tld.current.value,
-            tstatus: "occupied"
-        };
-        
-        try {
-            await axios.post("http://localhost:9000/api/owner/addtenant", payload);
-            showNotification("Tenant added successfully");
-            
-            // Reset form
-            tname.current.value = "";
-            taadhar.current.value = "";
-            taddress.current.value = "";
-            tcell.current.value = "";
-            tod.current.value = "";
-            tld.current.value = "";
-        } catch (error) {
-            console.log(error);
-            showNotification(error.response?.data?.message || "Failed to add tenant", "error");
-        } finally {
-            setIsSubmitting(false);
-        }
+        alert("To be implemented...")
     };
 
     return (

@@ -66,7 +66,7 @@ const LoginPage = ({ setLoginStatus, setUserType, setUsername, setOid, setLogin 
               <div className="h-16 w-16 rounded-full bg-blue-100 flex items-center justify-center mb-4">
                 <Home size={28} className="text-blue-600" />
               </div>
-              <h2 className="text-3xl font-bold text-blue-700 text-center">GrihaMitra</h2>
+              <h2 className="text-3xl font-bold text-blue-700 text-center">VasatiSamuchaya</h2>
               <p className="text-gray-500 text-center mt-2">Apartment Management System</p>
             </div>
           </div>

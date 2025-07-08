@@ -13,6 +13,7 @@ import {
   Menu, X, LogOut, User, ChevronRight, Settings, Bell
 } from 'lucide-react';
 import DisplayTenants from "./DisplayTenants";
+import Raisecomplaint from "./Raisecomplaint";
 
 function Owner({ oid, username, setLoginStatus ,login }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -214,7 +215,7 @@ function Owner({ oid, username, setLoginStatus ,login }) {
             <div className="p-6 flex-1 overflow-auto">
               <Routes>
                 <Route path="/viewexpenses" element={<Financialdata />} />
-                <Route path="/lodgecomplaint" element={<ComplaintFeedback />} />
+                <Route path="/lodgecomplaint" element={<Raisecomplaint />} />
                 <Route path="/addtenant" element={<AddTenant />} />
                 <Route path="/ownerservices" element={<OwnerServices />} />
                 <Route path="/tenantview" element={<DisplayTenants oid={oid}/>} />

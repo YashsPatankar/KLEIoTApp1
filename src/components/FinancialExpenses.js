@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Bar, Doughnut, Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -40,6 +40,7 @@ const FinancialExpenses = () => {
   const [notificationType, setNotificationType] = useState("success");
   const [totalExpenseAmount, setTotalExpenseAmount] = useState(0);
 
+  const selectedYear1=useRef("2022-2023")
   const displayNotification = (message, type = "success") => {
     setNotificationMessage(message);
     setNotificationType(type);
@@ -50,11 +51,9 @@ const FinancialExpenses = () => {
     }, 3000);
   };
 
-  // Fetch overall summary expenses
-  useEffect(() => {
-    setLoading(true);
+  const onselection=()=>{
     axios
-      .get("http://localhost:9000/api/admin/getsummaryexpenses")
+      .get("http://localhost:9000/api/admin/getsummaryexpenses/"+selectedYear1.current.value)
       .then((response) => {
         const data = response.data || [];
         setExpenseData(data);
@@ -70,7 +69,29 @@ const FinancialExpenses = () => {
         displayNotification("Failed to load expense data. Please try again later.", "error");
         setLoading(false);
       });
-  }, [monthWiseData]);
+  }
+
+  // Fetch overall summary expenses
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get("http://localhost:9000/api/admin/getsummaryexpenses/"+selectedYear1.current.value)
+      .then((response) => {
+        const data = response.data || [];
+        setExpenseData(data);
+        
+        // Calculate total expenses
+        const total = data.reduce((sum, item) => sum + (item.total || 0), 0);
+        setTotalExpenseAmount(total);
+        
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching summary expenses:", error);
+        displayNotification("Failed to load expense data. Please try again later.", "error");
+        setLoading(false);
+      });
+  }, [monthWiseData,selectedYear1]);
 
   // Fetch month-wise expenses based on the selected description
   const fetchMonthWiseExpenses = () => {
@@ -275,9 +296,21 @@ const FinancialExpenses = () => {
               </div>
             </div>
           </div>
+         
 
           {/* Chart Type Selection */}
           <div className="flex justify-center mb-6">
+          <select
+          ref={selectedYear1}
+          onChange={onselection}
+          className="block w-half m-2 p-2.5 text-base text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 transition"
+        >
+          <option disabled selected>Year</option>
+          <option>2022-2023</option>
+          <option>2023-2024</option>
+          <option>2024-2025</option>
+          <option>2025-2026</option>
+        </select>
             <div className="inline-flex rounded-md shadow-sm" role="group">
               <button
                 type="button"

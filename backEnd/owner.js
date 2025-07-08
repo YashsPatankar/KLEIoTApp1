@@ -104,7 +104,7 @@ router.post('/generatemaintainencedetails', async (req, res) => {
 router.post('/addamount', async (req, res) => {
   const payload1 = req.body;
   const amount = payload1.amount;
-  console.log("Amount to add:", amount);
+  //console.log("Amount to add:", amount);
 
   try {
     // Step 1: Increment amountcollected
@@ -146,7 +146,7 @@ router.get('/getmaintainence/:oid', async (req, res) => {
   let oid = parseInt(req.params.oid);
   try {
     const owners = await db.collection('ownerandmaintainence').find({ oid: oid }).toArray();
-    console.log(owners)
+    //console.log(owners)
     res.json(owners);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching employee data', error });
@@ -154,6 +154,7 @@ router.get('/getmaintainence/:oid', async (req, res) => {
 });
 
 router.post('/lodgecomplaint', async (req, res) => {
+  //console.log("I am here..")
   const payload = req.body
   console.log(payload)
   try {
@@ -163,6 +164,7 @@ router.post('/lodgecomplaint', async (req, res) => {
     console.log(error)
   }
 })
+
 
 router.post('/addtenant', async (req, res) => {
   const payload = req.body

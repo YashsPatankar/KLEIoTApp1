@@ -18,7 +18,8 @@ function Home({ setLoginStatus, setUserType, oid, setOid, setUsername, setLogin 
     axios
       .get("http://localhost:9000/api/getAptname")
       .then((response) => {
-        setApartmentname(response.data[0].Apartmentname);
+        //setApartmentname(response.data[0].Apartmentname);
+        setApartmentname("VaastuVihaar")
       })
       .catch((err) => {
         console.log(err);
