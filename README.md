@@ -1,70 +1,40 @@
-# Getting Started with Create React App
+# 💡 IoT-Based Apartment Management System – KLEIoTApp1
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack smart apartment monitoring system developed as a final year project at **KLE Technological University**, combining IoT hardware and a React-based web dashboard for real-time environmental control, alerts, and expense management.
 
-## Available Scripts
+![Project Poster](screenshots/poster.jpg)
+![Hardware Setup](screenshots/hardware.jpg)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🚀 Project Highlights
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- 🔥 **Fire & Gas Leakage Detection** using MQ sensors  
+- 🌡️ **Temperature-Based Fan Control** using DHT11 and servo motor  
+- 💧 **Water Conservation Alerts**  
+- 🔔 **Send Reminders & Track Expenses**  
+- 📊 **Web Dashboard** for real-time sensor data and analytics  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🧠 Tech Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| Layer        | Tech/Tool                         |
+|--------------|-----------------------------------|
+| IoT Device   | NodeMCU ESP8266, DHT11, MQ-1      |
+| Backend      | Python / Arduino IDE              |
+| Frontend     | React.js, HTML, CSS               |
+| Data Logging | Cloud / CSV / Firebase (optional) |
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🖥️ Screenshots
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+| Dashboard | Sensors | Graphs |
+|----------|---------|--------|
+| ![UI](screenshots/screenshot1.png) | ![Temp Sensor](screenshots/screenshot2.png) | ![Gas Detection](screenshots/screenshot3.png) |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 📂 Project Structure
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
